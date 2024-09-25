@@ -1,0 +1,107 @@
+@import "../../sass/global";
+
+.footer {
+    width: 100%;
+    height: 25rem;
+    padding: 2rem;
+    @include flex();
+    overflow: hidden !important;
+    scrollbar-width: none;
+    @include media(mobile) {
+        @include flex(column);
+        height: auto;
+        padding: 1rem;
+    }
+    .container {
+        width: 100%;
+        height: 100%;
+        background-color: lighten($color: $primary, $amount: 0%);
+        border-radius: 20px;
+        overflow: hidden;
+        @include flex(space-between);
+        padding: 1rem 2rem;
+        padding-bottom: 3.5%;
+        .copyright {
+            color: white;
+            @extend .font-mon;
+            font-size: 1.2rem;
+            text-align: center;
+            width: 100%;
+        }
+        @include media(mobile) {
+            padding: 1rem;
+            gap: 2rem;
+            flex-direction: column;
+        }
+        .logo {
+            width: 25%;
+            height: 100%;
+            @include media(mobile) {
+                width: 100%;
+            }
+            .image {
+                width: 100%;
+                height: 40%;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                    filter: contrast(100%);
+                }
+            }
+            .words {
+                margin-top: 5%;
+                height: 50%;
+
+                p {
+                    color: white;
+                    @extend .font-mon;
+                }
+            }
+        }
+        .quickLinks {
+            width: 25%;
+            height: 100%;
+            color: white;
+            @include media(mobile) {
+                width: 100%;
+            }
+            h1 {
+                font-size: 2rem;
+                @extend .font-mon-med;
+                cursor: default;
+                color: white;
+            }
+            ul {
+                margin-top: 5%;
+                list-style-type: none;
+                li {
+                    @extend .font-mon;
+                    margin-top: 2%;
+                    font-size: 1.1rem;
+
+                    &.link {
+                        cursor: pointer;
+                        position: relative;
+                        width: fit-content;
+                        transition: 0.3s all ease;
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            inset: 0;
+                            width: 0%;
+                            border-bottom: 2px solid white;    
+                            transition: 0.3s all ease-in-out;
+                    }
+                    &:hover {
+                        transform: translateX(10px);
+                        &::after {
+                            width: 100%;
+                        }
+                    }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,193 @@
+@import '../../sass/global';
+
+.container {
+    .ViewDivider {
+        width: 100%;
+        height: auto;
+        @include flex(space-between, flex-start);
+        padding: 1rem 2rem;
+        margin-bottom: 5%;
+        @include media(mobile) {
+            flex-direction: column-reverse;
+            padding: 0.5rem 1rem;
+            gap: 2rem;
+        }
+        .leftSide {
+            width: 65%;
+            height: 100%;
+            // background-color: red;
+            border-radius: 20px;
+            @include media(mobile) {
+                width: 100%;
+            }
+            .image {
+                width: 100%;
+                height: 25rem;
+                background-size: cover;
+                background-position: center;
+                img {
+                    border-radius: 20px;
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    background-position: center center;
+                }
+            }
+            .row {
+                margin-top: 1%;
+                width: 100%;
+                height: 11rem;
+                @include media(mobile) {
+                    margin-top: 5%;
+                }
+                &:active {
+                    border: none;
+                }
+                .slick-slide > div {
+                    margin: 0 10px;
+                  }
+                  .slick-list {
+                    margin: 0 -10px;
+                  }
+                .imgs {
+                    width: 10rem;
+                    height: 9rem;
+                    background-size: cover;
+                    background-position: center;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    img {
+                        border-radius: 20px;
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+            }
+            .itemsInList {
+                h1 {
+                    @extend .font-mon-extraBold;
+                    font-size: 3rem;
+                    @include media(mobile) {
+                        font-size: 2rem;
+                    }
+                }
+                .itemList {
+                    padding: 2% 0px;
+                    @include flex(flex-start, center);
+                    gap: 1rem;
+                }
+            }
+        }
+        .rightSide {
+            width: 30%;
+            height: auto;
+            padding: 2rem 1rem 1rem;
+            position: sticky;
+            top: 13%;
+            background-color: white;
+            box-shadow: 0px 10px 30px #00000020;
+            border-radius: 20px;
+            @include media(mobile) {
+                position: relative;
+                width: 100%;
+            }
+            .insider {
+                width: 100%;
+                height: 100%;
+                @include flex(flex-start, flex-end, column);
+                h1 {
+                    width: 100%;
+                    font-size: 3rem;
+                    @include media(mobile) {
+                        font-size: 2rem;
+                    }
+                }
+                p {
+                    font-family: "Montserrat", sans-serif;
+                    font-weight: 300;
+                    font-size: 1rem;
+                    color: grey;
+                    @include media(mobile) {
+                        font-size: 14px;
+                    }
+                }
+                h2 {
+                    width: 100%;
+                    font-size: 2rem;
+                    // font-weight: 500;
+                    @extend .font-mon-semi;
+                    margin: 1rem 0px;
+                    span {
+                        font-size: 1.2rem;
+                        font-weight: 400;
+                        color: grey;
+                        text-decoration: line-through;
+                    }
+                }
+                .tags {
+                    margin: 1rem 0;
+                    @include flex(flex-start, center);
+                    gap: 0.5rem;
+                    .tag {
+                        // background: tranap;
+                        border: 1px solid #d5d5d5;
+                        padding: 0.3rem 0.5rem;
+                        border-radius: 6px;
+                        color: #aaaaaa;
+                        font-weight: 300;
+                        font-size: 1rem;
+                        cursor: default
+                    }
+                }
+                button {
+                    @extend .glow;
+                }
+            }
+        }
+    }
+}
+
+.boxCard {
+    width: 25rem;
+    height: 9rem;
+    background-color: white;
+    box-shadow: 2px 2px 16px #11111125;
+    border-radius: 16px;
+    @include flex(space-between, center);
+    overflow: hidden;
+    padding: 0.5rem;
+    .img {
+        width: 35%;
+        height: 100%;
+        padding: 0.5rem;
+        img {
+            width: 100%;
+            border-radius: 14px;
+            height: 100%;
+            object-fit: contain;
+        }
+    }
+    .texts {
+        width: 62%;
+        height: 100%;
+        // background-color: yellowgreen;
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        p {
+            font-family: "Montserrat", sans-serif;
+            width: 100%;
+            font-size: 12px;
+            color: grey;
+        }
+        h3 {
+            margin-top: 5%;
+            @extend .font-mon-semi;
+            font-size: 1.2rem;
+
+        }
+    }
+}

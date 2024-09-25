@@ -1,0 +1,98 @@
+@import "../../sass/global";
+
+.navbar {
+    @include flex(space-between);
+    padding: 0.5rem 4rem;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(5px);
+    background-color: rgba($color: white, $alpha: 0.2);
+    z-index: 999;
+    @include media(mobile) {
+        padding: 0.5rem;
+    }
+    .logo {
+        width: 8%;
+        height: 90%;
+        @include media(mobile) {
+            width: 30%;
+        }
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .links {
+        @include media(mobile) {
+            display: none;
+        }
+        ul {
+            list-style-type: none;
+            @include flex();
+            gap: 1.6rem;
+            @include media(mobile) {
+                flex-direction: column;
+                &.visible {
+                    display: flex;
+                    opacity: 1;
+                    position: relative;
+                    z-index: 9999;
+                }
+                &.hidden {
+                    opacity: 0;
+                    display: none;
+                }
+            }
+            li {
+                color: black;
+                @extend .font-mon-med;
+                cursor: pointer;
+                transition: 0.3s all ease;
+                &:hover {
+                    color: $primary;
+                    transform: scale(1.1);
+                }
+                &.active {
+                    color: $primary;
+                }
+            }
+        }
+        &.responsive {
+            display: flex;
+            position: relative;
+            z-index: 100000;
+        }
+        &.visible {
+            z-index: 103;
+            width: 300px;
+            background-color: white;
+            box-shadow: -5px 0px 20px #00000025;
+            @include flex(center, center, column);
+            gap: 3vh;
+            list-style: none;
+            font-family: 700;
+            font-size: 1.2rem;
+            height: 100vh;
+            right: 0;
+            top: 0;
+            position: absolute;
+            .nav-menu-icon {
+                position: fixed;
+                right: 2%;
+                top: 25%;
+            }
+        }
+    }
+    .btns {
+        @extend .glow;
+        @include media(mobile) {
+            display: none;
+        }
+        &.visible {
+            display: inline-block;
+        }
+    }
+}

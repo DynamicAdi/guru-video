@@ -1,0 +1,98 @@
+@import "../../sass/global";
+
+.container {
+    @include fullScreen($h: auto);
+    padding: 1rem 2rem 0px;
+    overflow: hidden;
+    // background: #000;
+    @include media(mobile) {
+        padding: 1rem;
+    }
+    h1 {
+        font-size: 4rem;
+        color: $primary;
+    }
+    .faqChild {
+        width: 100%;
+        height: 90%;
+        @include flex(space-between, flex-start, row);
+        	
+        @include media(mobile) {
+            @include flex(center, center);
+
+        }
+        .faq {
+            width: 49%;
+            height: 100%;
+            @include flex(flex-start, flex-start, column);
+            gap: 0.5rem;
+            @include media(mobile) {
+                width: 100%;
+            }
+            h2 {
+                font-weight: 400;
+                font-size: 2.5rem;
+                color: $secondary;
+                margin-bottom: 1rem;
+            }
+            .box {
+                cursor: pointer;
+                margin-top: 1rem;
+                width: 90%;
+                height: 3.5rem;
+                padding: 0px 1rem;
+                border-bottom: 1px solid $grey;
+                @include flex(space-between, flex-start, row);
+                transition: 0.4s all ease;
+
+                @include media(mobile) {
+                    width: 100%;
+                    @include flex(flex-start, flex-start);
+                }
+                &:hover {
+                    p {
+                        color: $primary;
+                    }
+                    .ico {
+                        color: $primary;
+                    }
+                    .qAns {
+                        color: grey;
+                    }
+                }
+                &.answer {
+                    height: 10rem;
+                }
+                .ico {
+                    transition: 0.2s all ease;
+                }
+                p {
+                    font-size: 1.1rem;
+                    transition: 0.2s all ease;
+                    text-emphasis: none;
+                    width: 90%;
+                    @include media(mobile) {
+                        font-size: 1rem;
+                        width: 90%;
+                    }
+                }
+                .qAns {
+                    font-size: 1rem;
+                    color: grey;
+                    margin-top: 0.5rem;
+                    font-weight: 300;
+                    opacity: 0;
+                    transform: translateY(-50%);
+                    transition: 0.3s all ease;
+                    &:hover {
+                        color: grey;
+                    }
+                    &.open {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            }
+        }
+    }
+}

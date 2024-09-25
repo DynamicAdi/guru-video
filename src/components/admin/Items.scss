@@ -1,0 +1,56 @@
+@import '../../sass/global';
+
+.items {
+    @include fullScreen($h: 100vh);
+    padding: 1% 2%;
+    overflow-x: hidden;
+    position: relative;
+
+    .bottom {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5rem;
+        // background: rgba(0, 0, 0, 0.5);
+        background-color: #eeeeee;
+        border-top: 1px solid #d6d6d6;
+        color: black;
+        text-align: center;
+        @include flex(space-between, center, row);
+        padding: 0px 3rem;
+        h2 {
+            font-weight: 400;
+            font-size: 2rem
+        }
+
+    }
+    .crdParent {
+        @include flex(flex-start, flex-start);
+        height: 85%;
+        overflow-y: auto;
+        gap: 1rem;
+        margin-top: 2rem;
+
+        .ok {
+            width: 10rem;
+            height: 10rem;
+            border-radius: 10px;
+        }
+        .tag {
+            width: auto;
+            padding: 0.3rem 1rem;
+            border: 1px solid grey;
+            border-radius: 8px;
+            @include flex();
+            gap: 0.6rem;
+            outline: none;
+            button {
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                font-size: 1.2rem;
+            }
+        }
+    }
+}

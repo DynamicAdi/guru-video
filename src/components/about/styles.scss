@@ -1,0 +1,131 @@
+@import "../../sass/global";
+
+.about {
+    @include fullScreen($h: auto);
+    @include flex(flex-start, flex-start);
+    padding: 1rem 0rem 2rem 2rem;
+    @include media(mobile) {
+        padding: 0.7rem;
+        width: 100%;
+        height: auto;
+        align-items: center;
+    }
+    .upperText {
+        margin-top: 3%;
+        h2 {
+            @extend .font-mon;
+            font-size: 2.5rem;
+            line-height: normal;
+            span {
+                color: $secondary;
+            }
+        }
+        h1 {
+            line-height: normal;
+            font-size: 3rem;
+            span {
+                color: $primary;
+            }
+            @include media(mobile) {
+                font-size: 2.3rem;
+            }
+        }
+    }
+
+    .middle {
+        width: 100%;
+        height: 90%;
+        @include flex(space-between, center);
+        @include media(mobile) {
+            height: auto;
+            @include flex(space-between, center, column);
+        }
+        .content {
+            width: 55%;
+            height: 100%;
+            @include media(mobile) {
+                width: 100%;
+                padding: 1rem;
+            }
+        p {
+            @extend .font-mon;
+            font-size: 1.4rem;
+            text-align: justify;
+        }
+        button {
+            margin-top: 2%;
+            @include flex();
+            gap: 0.5rem;
+            @include media(mobile) {
+                margin-top: 5%;
+            }
+        }
+        .stats {
+            margin-top: 4%;
+            @include flex(flex-start, flex-start);
+            gap: 0.5rem;
+            @include media(mobile) {
+                width: 100%;
+                margin-top: 10%;
+            }
+            .box {
+                width: 13rem;
+                height: 10rem;
+                border-radius: 14px;
+                background-color: #eeeeee;
+                border: 1px solid $grey;
+                @include flex(flex-start, flex-start, column);
+                padding: 1rem;
+                padding-top: 2rem;
+                gap: 0.8rem;
+                @include media(mobile) {
+                    width: 100%;
+                }
+                h1 {
+                    line-height: 90%;
+                    margin: 0;
+                    padding: 0;
+                    font-size: 2.2rem;
+                    color: $secondary;
+                }
+                p {
+                    margin: 0;
+                    padding: 0;
+                    text-align: left;
+                    // font-size: 24px;
+                    font-size: 20px;
+                    text-wrap: balance;
+                    @extend .font-mon;
+                }
+            }
+        }
+        }
+        .images {
+            width: 45%;
+            height: 35rem;
+            position: relative;
+            @include media(mobile) {
+                width: 100%;
+                display: none
+            }
+            .dot {
+                position: absolute;
+                z-index: -1;
+                right: -15%;
+                top: -20%;
+                width: 100%;
+                transform: scale(1.25);
+                height: 100%;
+                border-radius: 100%;
+                // background-color: $primary;
+                @include flex(flex-start, flex-start);
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            
+            }
+        }
+    }
+}

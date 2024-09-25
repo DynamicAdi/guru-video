@@ -1,0 +1,82 @@
+@import "../../sass/global";
+
+    
+.menuCard {
+    width: 20rem;
+    height: 18rem;
+    background-color: #f1f1f140;
+    backdrop-filter: blur(5px);
+    border: 1px solid $grey;
+    border-radius: 20px;
+    position: relative;
+    padding: 0.7rem;
+    @include flex(flex-end, flex-end, column);
+    margin-top: 1rem;
+    @include media(mobile) {
+      width:18rem;
+    }
+
+    .image {
+      position: absolute;
+      top: 5%;
+      left: 26%;
+      width: 9rem;
+      height: 9rem;
+      // background-color: black;
+      border-radius: 100%;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 100%;
+        // box-shadow: 3px 10px 10px #00000030;
+      }
+    }
+
+    .content {
+      width: 100%;
+      height: 40%;
+      position: relative;
+      color: #000;
+      p {
+        @extend .font-mon;
+        font-size: 14px;
+      }
+      .btn {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        padding: 0.3rem 1rem;
+        padding-right: 0.5rem;
+        border-radius: 50px;
+        outline: none;
+        border: none;
+        background-color: #ffffff40;
+        backdrop-filter: blur(6px);
+        font-size: 1rem;
+        @include flex(space-between, center);
+        gap: 0.5rem;
+        cursor: pointer;
+        transition: 0.3s all cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .icon {
+            background-color: rgba($color: $primary, $alpha: 0.1);
+            color: black;
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            padding: 0.2rem;
+            font-size: 1.8rem;
+        }
+        &:hover {
+          background-color: rgba($color: $primary, $alpha: 1.0);
+            color: white;
+            transform: scale(0.9);
+
+          .icon {
+            background-color: rgba($color: $primary, $alpha: 1.0);
+            color: white;
+          }
+        }
+    }
+    }
+  }

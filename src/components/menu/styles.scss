@@ -1,0 +1,193 @@
+@import "../../sass/global";
+
+.menuMain {
+  margin-top: 6%;
+  @include fullScreen($h: auto);
+position: relative;
+  .up {
+    width: 100%;
+    // height: 3rem;
+    @include flex(space-between, center, row);
+    padding: 0px 2rem;
+    @include media(mobile) {
+      padding: 1rem;
+      flex-direction: column;
+    }
+
+    h1 {
+      @extend .font-mon-semi;
+    }
+    .tags {
+      width: 23%;
+      // background: #000;
+      height: 100%;
+      @include flex(flex-start, flex-start, row);
+      gap: 3%;
+      @include media(mobile) {
+        width: 100%;
+      }
+      .context {
+        @include flex(flex-start, flex-start, column);
+        gap: 0.2rem;
+        p {
+            font-size: 14px;
+            color: lighten($color: $primary, $amount: 10%);
+        }
+        .tag {
+          border-radius: 8px;
+          padding: 5px 16px;
+          background-color: white;
+          border: 1px solid #b6b6b6;
+          color: grey;
+          outline: none;
+          cursor: pointer;
+          transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+          @include flex();
+          gap: 0.5rem;
+          
+          @include media(mobile) {
+            width: 10.5rem;
+          }
+        }
+      }
+    }
+  }
+
+  .down {
+    width: 100%;
+    height: 5rem;
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0 -20px 60px -15px rgba(40, 44, 63, .15);
+    @include flex(space-between, center, row);
+    padding: 0px 7rem;
+
+    @include media(mobile) {
+      height: 6rem;
+      padding: 0px 1rem;
+      padding-bottom: 1rem;
+    }
+    h1 {
+        font-size: 1.8rem;
+        @extend .font-mon;
+        @include media(mobile) {
+          font-size: 1.3rem;
+        }
+      }
+    .buttons {
+        @include flex();
+        gap: 1rem;
+        button {
+            background-color: transparent;
+            color: $success;
+            @extend .font-p-medium;
+            padding: 0.3rem 1rem;
+            border-radius: 10px;
+            border: 2px solid currentColor;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s all cubic-bezier(0.075, 0.82, 0.165, 1);
+            font-size: 18px;
+            @include media(mobile) {
+              padding: 0.3rem 0.5rem;
+            }
+
+            &.activate {
+                @extend .font-mon-med;
+                border-color: limegreen;
+                color: limegreen;
+            
+            }
+            &.next {
+                &:hover {
+                    background-color: limegreen;
+                    color: white;
+                    border: transparent;
+                }
+            }
+            &.back {
+              border: 2px solid $danger;
+              color: $danger;
+              &:hover {
+                background-color: $danger;
+                color: white;
+              }
+            }
+            &.disabled {
+              cursor: not-allowed;
+              color: grey;
+              border: 2px solid rgba(2, 6, 12, 0.256);
+  
+              &:hover {
+                background-color: transparent;
+                color: grey;
+                border: 2px solid rgba(2, 6, 12, 0.256);
+              }
+            }
+            &.checkout {
+                @extend .glow;
+                transition: 0.4s all ease;
+                animation: jump 2s infinite;
+                @include media(mobile) {
+                  padding: 0.5rem 0.5rem;
+                }
+                @keyframes jump {
+                    0% {
+                        transform: translateY(0%);
+                    }
+                    50% {
+                        transform: translateY(-20%);
+                    }
+                    100% {
+                        transform: translateY(0%);
+                    }
+                }
+                &:hover {
+                  animation: none;
+                }
+            }
+        }
+    }
+  }
+
+  .screens {
+    height: auto;
+    @include flex();
+    overflow: hidden;
+    transition: 0.3s all ease;
+    
+    .child {
+      width: 100%;
+      height: auto;
+      overflow-y: scroll;
+      scrollbar-width: none;
+      @include flex(flex-start, flex-start);
+      gap: 4rem;
+      padding: 3rem 3rem 2rem 1rem;
+      margin-bottom: 5rem;
+      transition: 0.3s opacity ease;
+      // transform: translateX(100%);
+      @include media(mobile) {
+        @include flex(center, center, column);
+        padding: 3rem 1rem;
+        // flex-direction: column;
+      }
+    
+    &.nextScreen {
+      transition: 0.8s opacity ease;
+      animation: op 0.8s ease 1;
+      @keyframes op {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+    }
+    }
+
+  }
+  
+}

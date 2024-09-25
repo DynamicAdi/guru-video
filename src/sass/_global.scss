@@ -1,0 +1,161 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.font-poppins {
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+.font-p-medium {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+.font-p-semiBold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+}
+.font-p-bold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+.font-p-extraBold {
+    font-family: "Poppins", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+}
+
+.font-mon {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  .font-mon-med {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  .font-mon-semi {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+  }
+  .font-mon-bold {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+  .font-mon-extraBold {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+  }
+
+// colors
+
+@mixin flex($jc: center, $al: center, $fd: row, $wp: wrap) {
+    display: flex;
+    justify-content: $jc;
+    align-items: $al;
+    flex-direction: $fd;
+    flex-wrap: $wp;
+}
+
+@mixin fullScreen($w: 100vw, $h: 100vh) {
+    width: $w;
+    height: $h;
+}
+
+@mixin fullRatio($w: 100%, $h: 100%) {
+    width: $w;
+    height: $h;
+}
+
+// colors...
+$black: #171717;
+$white: #eeeeee;
+$grey: #d9d9d9;
+
+$primary: #ffc04c;
+// $primary: #5068ff;
+$secondary: #393bb4;
+
+// universal colors
+$danger: #ff5555;
+$warn: #ffe54f;
+$success: #54d661;
+
+.glow {
+  padding: 0.5rem 1rem;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  color: white;
+  background-color: $primary;
+  box-shadow: 6px 8px 20px rgba($color: $primary, $alpha: 0.6);   
+  cursor: pointer;
+  transition: 0.4s all ease;
+  &:hover {
+      transform: scale(0.9);
+      box-shadow: none;
+  }
+}
+
+
+.veg {
+  position: absolute;
+  right: 8%;
+  top: 5%;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 5px;
+  border: 0.5px solid limegreen;
+  padding: 0.1rem;
+  @include flex();
+  .dot {
+      width: 70%;
+      height: 70%;
+      background-color: limegreen;
+      border-radius: 5px;
+  }
+}
+
+// numbers (px)...
+$sm: 16px;
+$md: 20px;
+$lg: 24px;
+$xl: 32px;
+$xxl: 48px;
+$full: 100px;
+
+// ratios...
+$fullRatio: 100%;
+$midRatio: 80%;
+$halfRatio: 50%;
+$quaterRatio: 30%;
+
+$breakpoints: (
+  mobile : 0px, 
+  tablet : 589px,
+  desktop: 899px,
+);
+
+$maxPoints: (
+	mobile: 590px,
+	tablet: 1023px,
+    desktop: 2080px
+);
+
+@mixin media($keys...) {
+	@each $key in $keys {
+		@media screen and (min-width: map-get($breakpoints, $key)) and (max-width: map-get($maxPoints, $key)) {
+			@content;
+		}
+	}
+}
+

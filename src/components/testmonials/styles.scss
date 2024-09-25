@@ -1,0 +1,112 @@
+@import "../../sass/global";
+
+.testmonials {
+    @include fullScreen($h: 80vh);
+    @include media(mobile) {
+        height: 80vh;
+        padding: 1rem;  
+    }
+    h1 {
+        text-align: center;
+        margin-bottom: 3%;
+        font-size: 3.3rem;
+        @extend .font-mon-semi;
+        @include media(mobile) {
+            font-size: 2rem
+        }
+        span {
+            color: $primary;
+            @extend .font-mon-extraBold;
+        }
+    }
+    .mid {
+        width: 100%;
+        height: 20rem;
+        // @include flex(flex-start, center);
+        padding: 0px 2rem;
+        gap: 2rem;
+        @include media(mobile) {
+            margin-top: 2rem;
+            padding: 0 0.2rem;
+        }
+        .slick-slide > div {
+            margin: 0 10px;
+          }
+          .slick-list {
+            margin: 0 -10px;
+          }
+        
+        .TestmonialsCard {
+            // margin: 0px 1rem;
+            width: 29rem;
+            height: auto;
+            background: #eeeeee;
+            border-radius: 25px;
+            overflow: hidden;
+            padding: 1rem;
+            @include flex(space-between, flex-start, column);
+            padding-bottom: 2rem;
+            cursor: default;
+            transition: 0.3s all ease;
+            &.yellow {
+                background-color: lighten($color: $primary, $amount: 25%);
+            }
+            &:hover {
+                background-color: $primary;
+                color: white;
+                cursor: pointer;
+                
+
+                
+                .upper {
+                    .textTestmonials {
+                        p {
+                            color: white;
+                        }
+                    }
+                }
+            }
+            @include media(mobile) {
+                width: 100%;
+            }
+        .upper {
+            width: 100%;
+            height: 25%;
+            @include flex(space-evenly, flex-start);
+            .avatar {
+                width: 14%;
+                height: 100%;
+                // background-color: black;
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+            }
+            .textTestmonials {
+                width: 75%;
+                h1 {
+                    font-size: 2rem;
+                    @extend .font-mon-semi;
+                    text-align-last: left;
+                }
+                .sub {
+                    text-align: left;
+                    width: 100%;
+                    color: grey;
+                    font-weight: 400;
+                    @include media(mobile) {
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        .lower {
+            width: 100%;
+            height: 60%;
+            // background-color: #fff;
+        }
+        }
+    }
+}
