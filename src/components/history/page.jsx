@@ -4,7 +4,8 @@ import { useLocation } from 'react-router-dom'
 import axios from "axios"
 import SmallLoader from '../../global/loader/SmallLoader';
 
-function History({backend}) {
+function History() {
+    const backend = "http://localhost:8080"
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([])
     const location = useLocation()
@@ -29,6 +30,25 @@ function History({backend}) {
     useEffect(() => {
         getHistory();
     }, [id])
+
+    const formatDateToIST = (dateString) => {
+        const date = new Date(dateString);
+      
+        const options = {
+          timeZone: "Asia/Kolkata",
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        };
+      
+        return new Intl.DateTimeFormat('en-IN', options).format(date);
+      };
+      
+
+      
   return (
     <div className='container'>
         <div className="glow btn" onClick={() => window.history.back()}>Back</div>
@@ -43,7 +63,7 @@ function History({backend}) {
                 <div className="dot"></div>
                 <div className="naming" key={values}>
                     <h2>{values.status}</h2>
-                    <h3>{values.changedAt.split("T")[0]}</h3>
+                    <h3>{formatDateToIST(values.changedAt)}</h3>
                 </div>
             </div>
             ))}

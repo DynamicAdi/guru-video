@@ -56,8 +56,8 @@ function Render({backend}) {
                   display: "inline-block",
                   scale,
                   opacity,
-                  originX: "45%",
-                  originY: "30%",
+                  originX: "0%",
+                  originY: "35%",
                 }}
               >o</motion.span>us
             </span>{" "}
@@ -68,7 +68,7 @@ function Render({backend}) {
               <button className="glow">Corporate Box</button>
             </Link>
             <Link to="/menu">
-              <button className="glow green">Look Into Menu</button>
+              <button className="glow green">Customize menu</button>
             </Link>
           </div>
 
@@ -102,9 +102,8 @@ function Render({backend}) {
           </Canvas> */}
         </div>
       </div>
-      <div className="area">
+      {/* <div className="area">
       {/* <div className="gradient"></div> */}
-      <Selection backend={backend}/>
       {/* <Canvas 
       shadows
       >
@@ -114,7 +113,7 @@ function Render({backend}) {
       {/* <div className="video"> */}
           {/* <VideoScreen /> */}
           {/* </div> */}
-      </div>
+      {/* </div> */}
     </>
   );
 }

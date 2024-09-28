@@ -102,7 +102,6 @@ function Edit({backend}) {
             name: name,
             image: imageUrl
           });
-          console.log(response);
           if (response.statusText === 'OK') {
               setLoading(false);
             window.history.back();
@@ -112,6 +111,25 @@ function Edit({backend}) {
         }
       };
     
+    const updateCatogery = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.put(`${backend}/category/update`, {
+          id: id,
+          catogery: name,
+          image: imageUrl,
+        })
+        console.log(id);
+        
+        if (response.statusText === 'OK') {
+          setLoading(false);
+        window.history.back();
+      }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
     const handleClick = async (e) => {
         e.preventDefault();
         if (loading) return;
@@ -124,6 +142,9 @@ function Edit({backend}) {
         }
         else if (tab === "Services") {
             uploadServices();
+        }
+        else if (tab === "Category") {
+          updateCatogery();
         }
     }
   return (
@@ -183,6 +204,23 @@ function Edit({backend}) {
                 <option value={"decor"}>Decor</option>
                </select>
             </>)}
+            {tab === "Category" && (
+              <>
+              <input type="text" placeholder='Name' required value={name} onChange={(e) => setName(e.target.value)}/>
+        {imageUrl !== "" ? 
+            (
+                <div className="imgCont">
+                    <img src={imageUrl} alt="uploaded" className="uploadedImage" />
+                        {/* <h3>{imageUrl!== imageUrl ? "New Image" : "Current Image"}</h3> */}
+                  </div>
+                ) : ( 
+                    <input
+                    onChange={(e) => uploadImage(e)} 
+                    accept="image/*" type="file" />
+                )}
+          {uploadProgress > 0 && <progress value={uploadProgress} color='orange' max="100">{uploadProgress}%</progress>}
+              </>
+            )}
             <button className="glow"
             onClick={(e) => handleClick(e)}
             >

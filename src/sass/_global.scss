@@ -107,6 +107,7 @@ $success: #54d661;
 }
 
 
+
 .veg {
   position: absolute;
   right: 8%;
@@ -159,3 +160,9 @@ $maxPoints: (
 	}
 }
 
+
+.container {
+  @include media(mobile) {
+    padding: 1rem;
+  }
+}

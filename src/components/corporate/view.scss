@@ -1,6 +1,10 @@
 @import '../../sass/global';
 
-.container {
+.dabba {
+    margin-top: 4%;
+    @include media(mobile) {
+        padding: 1rem 0;
+    }
     .ViewDivider {
         width: 100%;
         height: auto;
@@ -11,6 +15,7 @@
             flex-direction: column-reverse;
             padding: 0.5rem 1rem;
             gap: 2rem;
+            margin-top: 15%;
         }
         .leftSide {
             width: 65%;
@@ -19,12 +24,16 @@
             border-radius: 20px;
             @include media(mobile) {
                 width: 100%;
+                height: auto;
             }
             .image {
                 width: 100%;
                 height: 25rem;
                 background-size: cover;
                 background-position: center;
+                @include media(mobile) {
+                    height: 16rem;
+                }
                 img {
                     border-radius: 20px;
                     width: 100%;
@@ -85,7 +94,7 @@
             height: auto;
             padding: 2rem 1rem 1rem;
             position: sticky;
-            top: 13%;
+            top: 3%;
             background-color: white;
             box-shadow: 0px 10px 30px #00000020;
             border-radius: 20px;
@@ -150,14 +159,20 @@
 }
 
 .boxCard {
-    width: 25rem;
+    width: 22rem;
     height: 9rem;
     background-color: white;
     box-shadow: 2px 2px 16px #11111125;
     border-radius: 16px;
     @include flex(space-between, center);
     overflow: hidden;
+    overflow-y: auto;
     padding: 0.5rem;
+    scrollbar-width: none;
+    position: relative;
+    .veg {
+        right: 2%;
+    }
     .img {
         width: 35%;
         height: 100%;
@@ -171,22 +186,30 @@
     }
     .texts {
         width: 62%;
-        height: 100%;
+        // height: 100%;
         // background-color: yellowgreen;
         h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             font-weight: 600;
+            line-height: 100%;
+            margin-bottom: 2%;
+            text-wrap: balance;
         }
         p {
             font-family: "Montserrat", sans-serif;
             width: 100%;
             font-size: 12px;
             color: grey;
+            text-emphasis: none;
+            text-wrap: balance;
+
         }
         h3 {
             margin-top: 5%;
             @extend .font-mon-semi;
             font-size: 1.2rem;
+            text-wrap: balance;
+
 
         }
     }

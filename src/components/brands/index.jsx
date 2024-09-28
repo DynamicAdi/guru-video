@@ -63,7 +63,7 @@ function Brands({backend}) {
   return (
     <div className="tableOfCustomers">
       <h1>
-        Join the table with <span>satasfied</span> customers
+        Join the table with <span>satisfied</span> customers
       </h1>
       <div className="middleNames">
       {loading ? <SmallLoader /> : 

@@ -21,7 +21,7 @@ function Menu({ backend }) {
 
   const fetchMenuData = async () => {
     try {
-      const { data } = await axios.get(`${backend}/catogery`);
+      const { data } = await axios.get(`${backend}/category`);
       setCatogery(data);
     } catch (error) {
       console.error("Failed to fetch menu data", error);

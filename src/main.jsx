@@ -78,6 +78,11 @@ createRoot(document.getElementById("root")).render(
             element={<Edit backend={URL}/>}
             errorElement={<ErrorPage />}
           />
+                    <Route
+            path="/dashboard/corporate"
+            element={<Form backend={URL}/>}
+            errorElement={<ErrorPage />}
+          />
           <Route
             path="/about-us"
             element={<AboutUs />}

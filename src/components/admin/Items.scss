@@ -7,18 +7,18 @@
     position: relative;
 
     .bottom {
-        position: absolute;
+        position: fixed;
         bottom: 0;
         left: 0;
         width: 100%;
         height: 5rem;
-        // background: rgba(0, 0, 0, 0.5);
+        
         background-color: #eeeeee;
         border-top: 1px solid #d6d6d6;
         color: black;
         text-align: center;
         @include flex(space-between, center, row);
-        padding: 0px 3rem;
+        padding: 0px 6rem 0px 3rem;
         h2 {
             font-weight: 400;
             font-size: 2rem

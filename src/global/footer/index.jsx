@@ -50,7 +50,7 @@ function Footer() {
           </ul>
         </div>
         <p className="copyright">
-          All the copyrights are reserved by The RD Group of Industries
+          All the copyrights are reserved by Guru caterers
         </p>
       </div>
     </div>

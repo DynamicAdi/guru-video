@@ -13,41 +13,49 @@ import SmallLoader from '../../global/loader/SmallLoader';
 function ViewAllItems({backend}) {
   const location = useLocation();
     const {id} = location.state;
+    const url = 'http://localhost:8080' // replace with your backend url
 
     
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [items, setItems] = useState([]);
 
     const getDetails = async () => {
       try {
         setIsLoading(true);
         const response = await axios.get(`${backend}/corporateDetails/id=${id}`);
+        const boxes = await axios.get(`${url}/CorporateItems/id=${id}`);
+
         if (response.status === 200) {
           setData(response.data);
           setIsLoading(false);
+        }
+
+        if (boxes.status === 200) {
+          setItems(boxes.data);
+          setIsLoading(false);
+          console.log(boxes.data);          
         }
       }
       catch (error) {
         console.log(error);
       }
     }
-    useEffect(() => {
-      getDetails();
-    }, [])
-
-
-    const images = [
-        {images: 'https://picsum.photos/1920'},
-        {images: 'https://picsum.photos/1080'},
-        {images: 'https://picsum.photos/900'},
-        {images: 'https://picsum.photos/800'},
-        {images: 'https://picsum.photos/700'},
-        {images: 'https://picsum.photos/600'},
-        {images: 'https://picsum.photos/200'},
-    ]
-    const [activeImage, setActiveImage] = useState(images[0].images);
-    console.log(activeImage);
     
+    const [activeImage, setActiveImage] = useState(!isLoading ? data[0].image[0] : "");
+
+    useEffect(() => {
+      getDetails();      
+      }, [])
+      
+      useEffect(() => {
+        if(data.length > 0)  {// only set activeImage when data is loaded and available
+        setActiveImage(data[0].image[0]);
+        }
+    }, [data])
+
+
+
 
     var settings = {
         dots: false,
@@ -87,7 +95,7 @@ function ViewAllItems({backend}) {
       };
   return (
     isLoading ? (<SmallLoader />) :
-    <div className='container'>
+    <div className='dabba'>
         <Navbar />
         {data && data.map((item) => (
         <div className="ViewDivider" key={item._id}>
@@ -96,20 +104,26 @@ function ViewAllItems({backend}) {
                     <img src={activeImage} alt="" />
                 </div>
                 <div className="row">
-                <Slider {...settings}>
-                    {images.map((image, index) => (
-                    <div className="imgs" key={index} onClick={() => setActiveImage(image.images)}>
-                    <img src={image.images} alt="" />
+                  {/* {setActiveImage(item.image[0])} */}
+                {/* <Slider {/...settings}> */}
+                    {item.image.map((image, index) => (
+                    <div className="imgs" key={index} onClick={() => setActiveImage(image)}>
+                    <img src={image} alt="" />
                     </div>
                     ))}
-                </Slider>
+                {/* </Slider> */}
                 </div>
 
                 <div className="itemsInList">
                     <h1>What's inside the box?</h1>
 
                     <div className="itemList">
-                        <DetailsCard />
+                      {
+                        isLoading ? <SmallLoader /> : items.length === 0 ? <h1>No Items Found</h1> : items.length > 0 ? items.map((data) => (
+                          <DetailsCard title={data.name} image={data.image} desc={data.description} id={data.id} isVeg={data.isVeg}/>
+                        ))
+                         : ""
+                      }
                     </div>
                 </div>
             </div>

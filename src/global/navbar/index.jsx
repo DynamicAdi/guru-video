@@ -28,6 +28,10 @@ function Navbar() {
       to: "/#popular",
     },
     {
+      name: "Packages",
+      to: "/#packages",
+    },
+    {
       name: "Menu",
       to: "/menu",
     },
@@ -146,7 +150,7 @@ function Navbar() {
                     viewport={{ once: false }}
                     key={i}
                     className={`${activeTab === tab.name ? "active" : ""}`}
-                    onClick={() => setActive(tab.name)}
+                    onClick={setActive(tab.name)}
                   >
                     {/* <Link to={{ pathname: tab.to, search: new URLSearchParams(tab.query).toString() }} style={{ color: "black" }}> */}
                     {tab.name}

@@ -1,5 +1,7 @@
 import React, {lazy} from "react"
 import VideoScreen from "./funcs/videoScreen"
+import Selection from "./render/Selection"
+import Packages from "./components/packages"
 
 
 const Navbar = lazy(() => import("./global/navbar"))
@@ -19,9 +21,11 @@ function RenderAllComponents({backend}) {
     {/* <VideoScreen /> */}
     <Render backend={backend}/>
     <About />
+    <Selection backend={backend}/>
     <Brands backend={backend} />
     <Services backend={backend}/>
     <PopularItems backend={backend} />
+    <Packages />
     <Testmonials />
     <FAQ backend={backend}/>
     <Footer />

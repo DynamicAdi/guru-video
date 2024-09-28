@@ -3,7 +3,7 @@
 .testmonials {
     @include fullScreen($h: 80vh);
     @include media(mobile) {
-        height: 80vh;
+        height: 110vh;
         padding: 1rem;  
     }
     h1 {

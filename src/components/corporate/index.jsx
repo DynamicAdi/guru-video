@@ -6,18 +6,22 @@ import axios from 'axios';
 import SmallLoader from '../../global/loader/SmallLoader';
 
 function Corporate({backend}) {
+  const url = 'http://localhost:8080'
   const [data, setData] = useState([]);
+  const tabs = ["Basic", "Advanced", "Luxury"]
+  const [activeTab, setActiveTab] = useState(tabs[0]);
   const [loading, setLoading] = useState(false)
-  const [FoodPrefrence, setFoodPrefrence] = useState('');
+
   const getFood = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${backend}/CorporateList`);
+      const response = await axios.get(`${url}/CorporateList`);
       setData(response.data);
+      
       setLoading(false);
-      if (FoodPrefrence !== "") {
-        setData(filterMenuItems(data));
-      setLoading(false);
+      if (activeTab) {
+        setData(filterMenuItems(response.data))
+        
       }
     }
     catch (error) {
@@ -28,17 +32,13 @@ function Corporate({backend}) {
 
   useEffect(() => {
     getFood();
-  }, [FoodPrefrence]);
+  }, [activeTab]);
+  const filterMenuItems = (data) => {
+    if(activeTab === "") return data;
+    return data.filter(item => item.catogery === activeTab.toLocaleLowerCase());
+  }
 
-  const filterMenuItems = (items) => {
-    if (FoodPrefrence === "veg") {
-      return items.filter((item) => item.isVeg);
-    }
-    if (FoodPrefrence === "non-veg") {
-      return items.filter((item) => !item.isVeg);
-    }
-    return items;
-  };
+
 
 
   return (
@@ -50,37 +50,24 @@ function Corporate({backend}) {
       <div className="circleTags">
         <p>select preference</p>
         <div className="btns">
-        <button>High</button>
-        <button>Medium</button>
-        <button>Low</button>
+        {tabs.map((item, index) => (
+          <button key={index} className={activeTab===item ? `active` : ""} onClick={() => setActiveTab(item)}>{item}</button>
+        ))}
         </div>
-
       </div>
-       
-       <div className="context">
-        <p>Food preference</p>
-       <select className='tag'
-        defaultValue={"both"}
-        onChange={(e) => setFoodPrefrence(e.target.value)}
-       >
-        <option value="">Both</option>
-        <option value="veg">Veg</option>
-        <option value="non-veg">Non-veg</option>
-       </select>
-       </div>
     </div>
     </div>
       <div className="middle">
-      {loading ? (<SmallLoader />) : (data && data.map((item) =>    
-      <CorporateCard key={item._id} 
+      {loading ? (<SmallLoader />) : data.length === 0 ? <h1>No Items Found...☹️🥺</h1> :
+      (data && data.map((item) =>    
+     <CorporateCard key={item._id} 
       id={item._id}
       title={item.title}
       description={item.description}
       image={item.image}
       actualPrice={item.actualPrice}
       discountedPrice={item.discountedPrice}
-      isVeg={item.isVeg}
-      />
+      />     
       ))}
 
 

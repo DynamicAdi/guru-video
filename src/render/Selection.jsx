@@ -7,12 +7,13 @@ import FilledCard from '../components/menu/filledCard';
 import SmallLoader from '../global/loader/SmallLoader';
 
 function Selection({backend}) {
+
     const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
     const getCategories = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(`${backend}/catogery`);
+        const response = await axios.get(`${backend}/category`);
         if (response.status === 200) {
           setCategories(response.data);
         setLoading(false)
@@ -68,12 +69,13 @@ function Selection({backend}) {
       }
 
   return (
+  <div className="area">
     <motion.div 
     initial={{opacity: 0}}
     whileInView={{opacity: 1}}
     transition={{duration: 0.6, delay: 1.5}}
-className="catogery">
-  <h1><span>categories</span></h1>
+    className="catogery">
+  <h1 className='headingCircle'><span>categories</span></h1>
   {loading ? <SmallLoader /> : categories.length === 0 ? <p>No categories found</p> : 
     <Slider {...settings} arrows={false}>
       {categories.map((category, index) => (
@@ -82,6 +84,7 @@ className="catogery">
     </Slider>
     }
     </motion.div>
+    </div>
   )
 }
 

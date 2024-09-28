@@ -5,17 +5,23 @@
     @include flex(flex-start, flex-start);
     padding: 1rem 0rem 2rem 2rem;
     @include media(mobile) {
-        padding: 0.7rem;
+        padding: 0.7rem 0;
         width: 100%;
         height: auto;
         align-items: center;
     }
     .upperText {
         margin-top: 3%;
+        @include media(mobile) {
+            padding: 0px 0.8rem;
+        }
         h2 {
             @extend .font-mon;
             font-size: 2.5rem;
             line-height: normal;
+            @include media(mobile) {
+                font-size: 2.2rem;
+            }
             span {
                 color: $secondary;
             }
@@ -27,7 +33,7 @@
                 color: $primary;
             }
             @include media(mobile) {
-                font-size: 2.3rem;
+                font-size: 1.8rem;
             }
         }
     }

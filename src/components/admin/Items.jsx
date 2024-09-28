@@ -22,6 +22,7 @@ function Items() {
     }, [])
   return (
     <div className="items">
+      <button className="glow" style={{marginBottom: "1%"}} onClick={() => window.history.back()}>Back</button>
       <h1>{title}</h1>
 
       {arry && arry.length > 0 ? (  

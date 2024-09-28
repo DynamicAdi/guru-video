@@ -9,22 +9,26 @@ import {
 import { readData } from "../../funcs/useFetch";
 
 import { FaRegEdit, FaRegTrashAlt, FaSpinner } from "react-icons/fa";
-import { CiCircleList, CiCircleQuestion, CiUser } from "react-icons/ci";
+import { CiCircleList, CiCircleQuestion, CiShoppingBasket, CiUser } from "react-icons/ci";
 import axios from "axios";
-import { GoListUnordered } from "react-icons/go";
+import { PiBag } from "react-icons/pi";
 import { GiHotMeal } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { BiCategoryAlt } from "react-icons/bi";
 
-function Dashboard({ logout, backend }) {
-  // const backend = "http://localhost:8080";
+function Dashboard({ logout }) {
+  const backend = "http://localhost:8080";
   const tabs = [
     { title: "Admins", icon: RiAdminLine },
     { title: "Foods", icon: IoFastFoodOutline },
-    { title: "Orders", icon: GoListUnordered },
+    { title: "Category", icon: BiCategoryAlt },
+    { title: "Orders", icon: PiBag },
     { title: "Corporate", icon: GiHotMeal },
+    { title: "Packages", icon: CiShoppingBasket },
     { title: "Clients", icon: CiUser },
     { title: "Services", icon: CiCircleList },
     { title: "Faq", icon: CiCircleQuestion },
+
   ];
   const [activeTab, setActiveTab] = useState(tabs[2].title);
   const { data = [], isLoading, error, reFetch } = readData(backend, activeTab);
@@ -78,15 +82,13 @@ function Dashboard({ logout, backend }) {
     try {
       setLoading(true);
       const response = await axios.get(`${backend}/getStatus`);
-      // setSelectedStatus(response.data);
       const data = response.data;
       setStatus(data);
       const initialStatus = {};
       data.forEach((product) => {
         initialStatus[product._id] = product.status;
       });
-      setSelectedStatus(initialStatus); 
-      // console.log(initialStatus);
+      setSelectedStatus(initialStatus);
       setLoading(false);
     }
     catch(e) {
@@ -168,6 +170,7 @@ function Dashboard({ logout, backend }) {
       setDescription(response.data.description);
       setCatogery(response.data.catogery);
       setLoading(false);
+      // createCatogery(true)
       // setVisible(true)
       if(action==="delete") {reFetch()}
     } catch (error) {
@@ -215,7 +218,7 @@ function Dashboard({ logout, backend }) {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post(`${backend}/catogery/create`, {
+      await axios.post(`${backend}/category/create`, {
         name: catogery,
         image: image,
       });
@@ -232,14 +235,14 @@ function Dashboard({ logout, backend }) {
     let url = "";
     let method = "GET";
     if (action === "read") {
-      (url = `${backend}/catogery`), (method = "GET");
+      (url = `${backend}/category`), (method = "GET");
     } else if (action === "create") {
-      (url = `${backend}/catogery/create`), (method = "POST");
+      (url = `${backend}/category/create`), (method = "POST");
     } else if (action === "delete") {
-      url = `${backend}/catogery/delete`;
+      url = `${backend}/category/delete`;
       method = "DELETE";
     } else if (action === "update") {
-      (url = `${backend}/catogery/update`), (method = "PUT");
+      (url = `${backend}/category/update`), (method = "PUT");
     }
 
     const options = {
@@ -327,8 +330,7 @@ function Dashboard({ logout, backend }) {
     <>
       {activeTab === "Clients" ||
       activeTab === "Faq" ||
-      activeTab === "Services" ||
-      activeTab === "Corporate" 
+      activeTab === "Services"
       ? (
         <div className="upper">
           <div className="btns">
@@ -338,8 +340,17 @@ function Dashboard({ logout, backend }) {
           </div>
         </div>
       )
-      : 
-      activeTab==="Foods" ? (
+      : activeTab === "Corporate" || activeTab === "Packages" ? (
+        <div className="upper">
+        <div className="btns">
+          <Link to={"/dashboard/corporate"} state={{ tab: activeTab }}>
+            <button>Add Data</button>
+          </Link>
+        </div>
+      </div>
+      ) 
+      
+      : activeTab==="Foods" ? (
           <div className="upper">
             <div className="btns">
               <button
@@ -622,14 +633,6 @@ function Dashboard({ logout, backend }) {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <select
-                    onChange={(e) => setRole(e.target.value)}
-                    defaultValue={role}
-                  >
-                    {/* <option>{role}</option> */}
-                    <option value="admin">Admin</option>
-                    <option value="superAdmin">Super admin</option>
-                  </select>
                   {update && (
                     <button
                       style={{ cursor: "pointer" }}
@@ -845,7 +848,9 @@ function Dashboard({ logout, backend }) {
                                       <>
                                         {activeTab === "Clients" ||
                                         activeTab === "Services" ||
-                                        activeTab === "Faq" ? (
+                                        activeTab === "Faq" ||
+                                        activeTab === "Category"
+                                        ? (
                                           <Link
                                             to={"/dashboard/edit"}
                                             state={{
@@ -864,7 +869,28 @@ function Dashboard({ logout, backend }) {
                                               size={18}
                                             />
                                           </Link>
-                                        ) : (
+                                        ) : 
+                                        activeTab === "Corporate" || activeTab==="Packages" ? (
+                                          <Link to={"/dashboard/corporate"} state={{
+                                            id: item._id,
+                                            name: item.title,
+                                            description: item.description,
+                                            image: item.image,
+                                            actualPrice: item.actualPrice,
+                                            discountedPrice: item.discountedPrice,
+                                            catogery: item.catogery,
+                                            items: item.items,
+                                            tag: item.tags,
+                                            tab: activeTab
+                                          }}>
+                                            {" "}
+                                            <FaRegEdit
+                                              className="edit"
+                                              size={18}
+                                            />
+                                          </Link>
+                                        ) :
+                                        (
                                           <FaRegEdit
                                             className="edit"
                                             size={18}
@@ -875,11 +901,12 @@ function Dashboard({ logout, backend }) {
                                                 setAdmin(true);
                                                 update
                                                   ? console.log("nalla")
-                                                  : handleEdit(
+                                                  : 
+                                                  handleEdit(
                                                       "edit",
                                                       item._id
                                                     ),
-                                                  setId(item._id);
+                                                    setId(item._id);
                                               }
                                             }}
                                           />
