@@ -9,17 +9,15 @@ function History() {
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([])
     const location = useLocation()
-    const {id} = location.state || ""
+    const {id, tab} = location.state || ""
 
     const getHistory = async () => {
         try {
-
             setLoading(true)
-            const response = await axios.get(`${backend}/statusHistory/${id}`)
+            const response = await axios.get(`${backend}/statusHistory/${tab}/${id}`)
             if (response.status === 200) {
                 setData(response.data);
-                console.log(response.data);
-                
+                console.log(response.data);   
                 setLoading(false);
             }
         } catch (error) {

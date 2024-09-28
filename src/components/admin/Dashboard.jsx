@@ -9,12 +9,19 @@ import {
 import { readData } from "../../funcs/useFetch";
 
 import { FaRegEdit, FaRegTrashAlt, FaSpinner } from "react-icons/fa";
-import { CiCircleList, CiCircleQuestion, CiShoppingBasket, CiUser } from "react-icons/ci";
+import {
+  CiCircleList,
+  CiCircleQuestion,
+  CiShoppingBasket,
+  CiUser,
+} from "react-icons/ci";
 import axios from "axios";
-import { PiBag } from "react-icons/pi";
+import { PiBag, PiBasketLight } from "react-icons/pi";
 import { GiHotMeal } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { LuPackagePlus } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
+import SmallLoader from "../../global/loader/SmallLoader";
 
 function Dashboard({ logout }) {
   const backend = "http://localhost:8080";
@@ -23,14 +30,15 @@ function Dashboard({ logout }) {
     { title: "Foods", icon: IoFastFoodOutline },
     { title: "Category", icon: BiCategoryAlt },
     { title: "Orders", icon: PiBag },
+    { title: "Corporate orders", icon: PiBasketLight },
+    { title: "Packages orders", icon: LuPackagePlus },
     { title: "Corporate", icon: GiHotMeal },
     { title: "Packages", icon: CiShoppingBasket },
     { title: "Clients", icon: CiUser },
     { title: "Services", icon: CiCircleList },
     { title: "Faq", icon: CiCircleQuestion },
-
   ];
-  const [activeTab, setActiveTab] = useState(tabs[2].title);
+  const [activeTab, setActiveTab] = useState(tabs[3].title);
   const { data = [], isLoading, error, reFetch } = readData(backend, activeTab);
   const [loading, setLoading] = useState(false);
   const [visible, setVisible] = useState(false);
@@ -51,8 +59,8 @@ function Dashboard({ logout }) {
   const [image, setImage] = useState("");
   const [uploadProgress, setUploadProgress] = useState(false);
 
-  const [selectedStatus, setSelectedStatus] = useState("ordered");
-  const [status, setStatus] = useState([]);
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [status, setStatus] = useState(false);
 
   const options = [
     "ordered",
@@ -78,28 +86,68 @@ function Dashboard({ logout }) {
     });
   };
 
-  const getStatus = async () => {
+  const corporateStatusChange = async (e, id) => {
+    const newStatus = e.target.value;
+
+    setSelectedStatus((prevStatus) => ({
+      ...prevStatus,
+      [id]: newStatus,
+    }));
+
+    setSelectedStatus(newStatus);
+    await axios.put(`${backend}/changeStatus`, {
+      id: id,
+      status: newStatus,
+    });
+  };
+
+  const packagesStatusChange = async (e, id) => {
+    const newStatus = e.target.value;
+
+    setSelectedStatus((prevStatus) => ({
+      ...prevStatus,
+      [id]: newStatus,
+    }));
+
+    setSelectedStatus(newStatus);
+    await axios.put(`${backend}/changepackagesStatus`, {
+      id: id,
+      status: newStatus,
+    });
+  };
+
+  const getStatus = async (route) => {
     try {
       setLoading(true);
-      const response = await axios.get(`${backend}/getStatus`);
+      // setStatus(true)
+      const response = await axios.get(`${backend}/${route}`);
       const data = response.data;
-      setStatus(data);
       const initialStatus = {};
       data.forEach((product) => {
         initialStatus[product._id] = product.status;
       });
       setSelectedStatus(initialStatus);
+      // setStatus(false);
       setLoading(false);
-    }
-    catch(e) {
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
+  // const refetchStatus = async () => {
+  //   await getStatus();
+  // }
 
   useEffect(() => {
-    activeTab === "Orders" ? getStatus() : setLoading(false);
-  }, [handleStatusChange]);
+    activeTab === "Orders" ? getStatus("getStatus") : setLoading(false);
+  }, [activeTab, handleStatusChange]);
 
+  useEffect(() => {
+    activeTab === "Corporate orders" ? getStatus("corporateStatus") : setLoading(false);
+  }, [activeTab, corporateStatusChange]);
+
+  useEffect(() => {
+    activeTab === "Packages orders" ? getStatus("packagesStatus") : setLoading(false);
+  }, [activeTab, packagesStatusChange]);
 
   const [create, setCreate] = useState(false);
   const [id, setId] = useState("");
@@ -135,8 +183,8 @@ function Dashboard({ logout }) {
         url = `${backend}/update`;
         METHOD = "PUT";
       }
-      if (activeTab==="Foods") {
-        getCatogery("read")
+      if (activeTab === "Foods") {
+        getCatogery("read");
       }
 
       const response = await axios.request({
@@ -172,7 +220,9 @@ function Dashboard({ logout }) {
       setLoading(false);
       // createCatogery(true)
       // setVisible(true)
-      if(action==="delete") {reFetch()}
+      if (action === "delete") {
+        reFetch();
+      }
     } catch (error) {
       console.error("Error:", error);
     }
@@ -330,8 +380,7 @@ function Dashboard({ logout }) {
     <>
       {activeTab === "Clients" ||
       activeTab === "Faq" ||
-      activeTab === "Services"
-      ? (
+      activeTab === "Services" ? (
         <div className="upper">
           <div className="btns">
             <Link to={"/dashboard/add/form"} state={{ tab: activeTab }}>
@@ -339,40 +388,36 @@ function Dashboard({ logout }) {
             </Link>
           </div>
         </div>
-      )
-      : activeTab === "Corporate" || activeTab === "Packages" ? (
+      ) : activeTab === "Corporate" || activeTab === "Packages" ? (
         <div className="upper">
-        <div className="btns">
-          <Link to={"/dashboard/corporate"} state={{ tab: activeTab }}>
-            <button>Add Data</button>
-          </Link>
-        </div>
-      </div>
-      ) 
-      
-      : activeTab==="Foods" ? (
-          <div className="upper">
-            <div className="btns">
-              <button
-                className="btn"
-                onClick={() => {
-                  setCreate(true), getCatogery("read");
-                }}
-              >
-                Add Food +
-              </button>
-              <button
-                className="btn catogery"
-                onClick={() => {
-                  setCreateCatogery(true);
-                }}
-              >
-                Add Catogery +
-              </button>
-            </div>
+          <div className="btns">
+            <Link to={"/dashboard/corporate"} state={{ tab: activeTab }}>
+              <button>Add Data</button>
+            </Link>
           </div>
-      ) :
-      null}
+        </div>
+      ) : activeTab === "Foods" ? (
+        <div className="upper">
+          <div className="btns">
+            <button
+              className="btn"
+              onClick={() => {
+                setCreate(true), getCatogery("read");
+              }}
+            >
+              Add Food +
+            </button>
+            <button
+              className="btn catogery"
+              onClick={() => {
+                setCreateCatogery(true);
+              }}
+            >
+              Add Catogery +
+            </button>
+          </div>
+        </div>
+      ) : null}
       <div
         className="container"
         style={
@@ -650,12 +695,12 @@ function Dashboard({ logout }) {
         ) : (
           ""
         )}
-        <div className="core">
+        <div className="core" style={{ width: "100%" }}>
           <div
             className="left"
             style={
               isLoading
-                ? { width: "100%", padding: "0px 2rem" }
+                ? { width: "20%"}
                 : { textAlign: "center" }
             }
           >
@@ -666,6 +711,7 @@ function Dashboard({ logout }) {
                   <li
                     key={items.title}
                     className={activeTab === items.title ? "active" : ""}
+                    // style={tabs === "Corporate orders" ? {fontSize: "0.5rem"} : null}
                     onClick={() => setActiveTab(items.title)}
                   >
                     <items.icon /> {items.title}
@@ -685,13 +731,19 @@ function Dashboard({ logout }) {
           <div className="right">
             {isLoading ? (
               <div
-                style={{
-                  textAlign: "center",
-                  position: "absolute",
-                  inset: "40%",
-                  fontSize: "6rem",
-                }}
+              style={{
+                textAlign: "center",
+                position: "absolute",
+                inset: "45%",
+                left: "55%",
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: "column",
+                fontSize: "5rem",
+              }}
               >
+                <SmallLoader />
                 Loading
               </div>
             ) : error ? (
@@ -724,13 +776,21 @@ function Dashboard({ logout }) {
                             <th key={key}>{key}</th>
                           ))}
                           {activeTab !== "Orders" ? (
-                            <div className="empty">
-                              <h4>Action</h4>
-                            </div>
+                            activeTab !== "Corporate orders" ? (
+                              activeTab !== "Packages orders" ? (
+                                <div className="empty">
+                                  <h4>Action</h4>
+                                </div>
+                              ) : (
+                                ""
+                              )
+                            ) : null
                           ) : (
                             ""
                           )}
-                          {activeTab === "Orders" ? (
+                          {activeTab === "Orders" ||
+                          activeTab === "Corporate orders" ||
+                          activeTab === "Packages orders" ? (
                             <div className="empty">
                               <h4>Status</h4>
                             </div>
@@ -773,7 +833,6 @@ function Dashboard({ logout }) {
                                       key !== "status"
                                   )
                                   .map((key) => {
-                                    
                                     return (
                                       <>
                                         <td key={key}>
@@ -802,35 +861,38 @@ function Dashboard({ logout }) {
                                                 "Yes"
                                               ) : item[key] === false ? (
                                                 "No"
-                                              ) : Array.isArray(item[key]) ? 
-                                              key === "statusHistory" ? (
-                                                <Link to={"/dashboard/history"} 
-                                                state={{id: item._id}}
-                                                style={{
-                                                  textDecoration: "none",
-                                                  color: "royalblue",
-                                                }}>
-                                                  check history
-                                                </Link>
-                                              ) :
-                                              (
-                                                <Link
-                                                  to={`/dashboard/items`}
-                                                  state={{
-                                                    arry: item[key],
-                                                    img: item.image,
-                                                    tag: item.tags,
-                                                    ttle: item.title,
-                                                  }}
-                                                  style={{
-                                                    textDecoration: "none",
-                                                    color: "royalblue",
-                                                  }}
-                                                >
-                                                  {/* {console.log(item[key]) */}
-                                                  {/* } */}
-                                                  View
-                                                </Link>
+                                              ) : Array.isArray(item[key]) ? (
+                                                key === "statusHistory" ? (
+                                                  <Link
+                                                    to={"/dashboard/history"}
+                                                    state={{
+                                                      id: item._id,
+                                                      tab: activeTab,
+                                                    }}
+                                                    style={{
+                                                      textDecoration: "none",
+                                                      color: "royalblue",
+                                                    }}
+                                                  >
+                                                    check history
+                                                  </Link>
+                                                ) : (
+                                                  <Link
+                                                    to={`/dashboard/items`}
+                                                    state={{
+                                                      arry: item[key],
+                                                      img: item.image,
+                                                      tag: item.tags,
+                                                      ttle: item.title,
+                                                    }}
+                                                    style={{
+                                                      textDecoration: "none",
+                                                      color: "royalblue",
+                                                    }}
+                                                  >
+                                                    View
+                                                  </Link>
+                                                )
                                               ) : (
                                                 item[key]
                                               )}
@@ -841,138 +903,224 @@ function Dashboard({ logout }) {
                                     );
                                   })}
                                 {activeTab !== "Orders" ? (
-                                  <div className="empty icons">
-                                    {loading ? (
-                                      <FaSpinner className="spinner" />
-                                    ) : (
-                                      <>
-                                        {activeTab === "Clients" ||
-                                        activeTab === "Services" ||
-                                        activeTab === "Faq" ||
-                                        activeTab === "Category"
-                                        ? (
-                                          <Link
-                                            to={"/dashboard/edit"}
-                                            state={{
-                                              tab: activeTab,
-                                              id: item._id,
-                                              image: item.image,
-                                              name: item.name,
-                                              question: item.question,
-                                              answer: item.answer,
-                                              catogery: item.catogery,
-                                            }}
-                                          >
-                                            {" "}
-                                            <FaRegEdit
-                                              className="edit"
+                                  activeTab !== "Corporate orders" ? (
+                                    activeTab !== "Packages orders" ? (
+                                      <div className="empty icons">
+                                        {loading ? (
+                                          <FaSpinner className="spinner" />
+                                        ) : (
+                                          <>
+                                            {activeTab === "Clients" ||
+                                            activeTab === "Services" ||
+                                            activeTab === "Faq" ||
+                                            activeTab === "Category" ? (
+                                              <Link
+                                                to={"/dashboard/edit"}
+                                                state={{
+                                                  tab: activeTab,
+                                                  id: item._id,
+                                                  image: item.image,
+                                                  name: item.name,
+                                                  question: item.question,
+                                                  answer: item.answer,
+                                                  catogery: item.catogery,
+                                                }}
+                                              >
+                                                {" "}
+                                                <FaRegEdit
+                                                  className="edit"
+                                                  size={18}
+                                                />
+                                              </Link>
+                                            ) : activeTab === "Corporate" ||
+                                              activeTab === "Packages" ? (
+                                              <Link
+                                                to={"/dashboard/corporate"}
+                                                state={{
+                                                  id: item._id,
+                                                  name: item.title,
+                                                  description: item.description,
+                                                  image: item.image,
+                                                  actualPrice: item.actualPrice,
+                                                  discountedPrice:
+                                                    item.discountedPrice,
+                                                  catogery: item.catogery,
+                                                  items: item.items,
+                                                  tag: item.tags,
+                                                  tab: activeTab,
+                                                }}
+                                              >
+                                                {" "}
+                                                <FaRegEdit
+                                                  className="edit"
+                                                  size={18}
+                                                />
+                                              </Link>
+                                            ) : (
+                                              <FaRegEdit
+                                                className="edit"
+                                                size={18}
+                                                onClick={() => {
+                                                  {
+                                                    setVisible(true);
+                                                    setUpdate(true);
+                                                    setAdmin(true);
+                                                    update
+                                                      ? console.log("nalla")
+                                                      : handleEdit(
+                                                          "edit",
+                                                          item._id
+                                                        ),
+                                                      setId(item._id);
+                                                  }
+                                                }}
+                                              />
+                                            )}
+                                            <FaRegTrashAlt
+                                              className="delete"
                                               size={18}
+                                              onClick={() => {
+                                                handleEdit("delete", item._id);
+                                              }}
                                             />
-                                          </Link>
-                                        ) : 
-                                        activeTab === "Corporate" || activeTab==="Packages" ? (
-                                          <Link to={"/dashboard/corporate"} state={{
-                                            id: item._id,
-                                            name: item.title,
-                                            description: item.description,
-                                            image: item.image,
-                                            actualPrice: item.actualPrice,
-                                            discountedPrice: item.discountedPrice,
-                                            catogery: item.catogery,
-                                            items: item.items,
-                                            tag: item.tags,
-                                            tab: activeTab
-                                          }}>
-                                            {" "}
-                                            <FaRegEdit
-                                              className="edit"
-                                              size={18}
-                                            />
-                                          </Link>
-                                        ) :
-                                        (
-                                          <FaRegEdit
-                                            className="edit"
-                                            size={18}
-                                            onClick={() => {
-                                              {
-                                                setVisible(true);
-                                                setUpdate(true);
-                                                setAdmin(true);
-                                                update
-                                                  ? console.log("nalla")
-                                                  : 
-                                                  handleEdit(
-                                                      "edit",
-                                                      item._id
-                                                    ),
-                                                    setId(item._id);
-                                              }
-                                            }}
-                                          />
+                                          </>
                                         )}
-                                        <FaRegTrashAlt
-                                          className="delete"
-                                          size={18}
-                                          onClick={() => {
-                                            handleEdit("delete", item._id);
-                                          }}
-                                        />
-                                      </>
-                                    )}
-                                  </div>
+                                      </div>
+                                    ) : (
+                                      <></>
+                                    )
+                                  ) : null
                                 ) : (
                                   <></>
                                 )}
                                 {activeTab === "Orders" && (
                                   <>
-                                  {/* {
-                                    status.map((item, index) => ( */}
-                                      <select
-                                        key={index}
-                                        value={selectedStatus[item._id] || ''}
-                                        onChange={(e) => {
-                                          handleStatusChange(e, item._id);
-                                        }}
-                                        // defaultValue={item.status || "status"}
-                                      >
-                                    {options.map((option, index) => {
-                                      const currentIndex = options.indexOf(selectedStatus[item._id]);
-                                      const isDisabled = index !== currentIndex && index !== currentIndex + 1;
+                                    <select
+                                      key={index}
+                                      defaultValue={
+                                        selectedStatus[item._id]
+                                      }
+                                      // value={selectedStatus[item._id]}
+                                      onChange={(e) => {
+                                        handleStatusChange(e, item._id);
+                                        // activeTab === "Corporate orders" && corporateStatusChange(e, item._id);
+                                      }}
+                                    >
+                                      {selectedStatus!=="" ? (
+                                        options.map((option, index) => {
+                                          const currentIndex = options.indexOf(
+                                            selectedStatus[item._id]
+                                          );
+                                          const isDisabled =
+                                            index !== currentIndex &&
+                                            index !== currentIndex + 1;
 
-                                      return (
-                                        <option
-                                        key={option}
-                                        value={option}
-                                        disabled={isDisabled}
+                                          return (
+                                            <option
+                                              key={option}
+                                              value={option}
+                                              disabled={isDisabled}
+                                            >
+                                              {option}
+                                            </option>
+                                          );
+                                        })
+                                      ) : (
+                                        <option>Loading...</option>
+                                      )}
+                                    </select>
+                                  </>
+                                )}
+                                {activeTab === "Corporate orders" && (
+                                  <>
+                                    <select
+                                      key={index}
+                                      defaultValue={
+                                        selectedStatus[item._id]
+                                      }
+                                      onChange={(e) => {
+                                        corporateStatusChange(e, item._id);
+                                      }}
+                                    >
+                                      {selectedStatus!=="" ? (
+                                        options.map((option, index) => {
+                                          const currentIndex = options.indexOf(
+                                            selectedStatus[item._id]
+                                          );
+                                          const isDisabled =
+                                            index !== currentIndex &&
+                                            index !== currentIndex + 1;
 
-                                        // disabled={disabledOptions.includes(
-                                        //   option
-                                        // )}
-                                        >
-                                        {option}
-                                      </option>
-)
-})}
-                                  </select>
-                                      {/* )) */}
-                                    {/* } */}
+                                          return (
+                                            <option
+                                              key={option}
+                                              value={option}
+                                              disabled={isDisabled}
+                                            >
+                                              {option}
+                                            </option>
+                                          );
+                                        })
+                                      ) : (
+                                        <option>Loading...</option>
+                                      )}
+                                    </select>
                                   </>
                                 )}
 
+                                {activeTab === "Packages orders" && (
+                                  <>
+                                    <select
+                                      key={index}
+                                      defaultValue={
+                                        selectedStatus[item._id]
+                                      }
+                                      onChange={(e) => {
+                                        packagesStatusChange(e, item._id);
+                                      }}
+                                    >
+                                      {selectedStatus!=="" ? (
+                                        options.map((option, index) => {
+                                          const currentIndex = options.indexOf(
+                                            selectedStatus[item._id]
+                                          );
+                                          const isDisabled =
+                                            index !== currentIndex &&
+                                            index !== currentIndex + 1;
+
+                                          return (
+                                            <option
+                                              key={option}
+                                              value={option}
+                                              disabled={isDisabled}
+                                            >
+                                              {option}
+                                            </option>
+                                          );
+                                        })
+                                      ) : (
+                                        <option>Loading...</option>
+                                      )}
+                                    </select>
+                                  </>
+                                )}
                               </tr>
                             </>
                           ))}
                         </>
                       ) : (
-                        "No Data"
+                        <div>
+                          <h2>NO Data is available to show</h2>
+                        </div>
                       )}
                     </tbody>
                   </table>
                 </div>
               </>
             ) : (
-              "No Data"
+              <div>
+                <h2>NO Data is available to show</h2>
+              </div>
             )}
           </div>
         </div>

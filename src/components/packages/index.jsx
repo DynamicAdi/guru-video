@@ -5,9 +5,9 @@ import SmallLoader from '../../global/loader/SmallLoader';
 import Slider from 'react-slick';
 import axios from 'axios'
 
-function Packages() {
-  const url = 'http://localhost:8080'; // Replace with your API endpoint
-    const tabs = ['Basic', 'Advanced', 'Luxury'];
+function Packages({backend}) {
+  
+  const tabs = ['Basic', 'Advanced', 'Luxury'];
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const [loading, setloading] = useState(false);
     const [data, setData] = useState([]);
@@ -16,9 +16,8 @@ function Packages() {
   const getData = async () => {
     try {
       setloading(true);
-      const response = await axios.get(`${url}/packages`);
+      const response = await axios.get(`${backend}/packages`);
       if (response.status === 200) {
-        console.log(response.data);
         setData(filterMenuItems(response.data));
         setloading(false);
       }

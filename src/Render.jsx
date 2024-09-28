@@ -25,7 +25,7 @@ function RenderAllComponents({backend}) {
     <Brands backend={backend} />
     <Services backend={backend}/>
     <PopularItems backend={backend} />
-    <Packages />
+    <Packages backend={backend}/>
     <Testmonials />
     <FAQ backend={backend}/>
     <Footer />

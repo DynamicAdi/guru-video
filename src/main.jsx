@@ -17,6 +17,9 @@ import Client from "./components/forms/Client.jsx";
 import AboutUs from "./components/about/Main.jsx";
 import Edit from "./components/forms/Edit.jsx";
 import History from "./components/history/page.jsx";
+import BuyNow from "./components/purchase/index.jsx";
+import PackageDetails from "./components/packages/details.jsx";
+
 
 const URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -39,8 +42,28 @@ createRoot(document.getElementById("root")).render(
             errorElement={<ErrorPage />}
           />
           <Route
+            path="/packages"
+            element={<Corporate backend={URL} />}
+            errorElement={<ErrorPage />}
+          />
+          <Route
             path="/corporate/items"
             element={<ViewAllItems backend={URL} />}
+            errorElement={<ErrorPage />}
+          />
+          <Route
+            path="/packages/items"
+            element={<PackageDetails backend={URL} />}
+            errorElement={<ErrorPage />}
+          />
+           <Route
+            path="/packages/checkout"
+            element={<BuyNow backend={URL} />}
+            errorElement={<ErrorPage />}
+          />
+          <Route
+            path="/corporate/checkout"
+            element={<BuyNow backend={URL} />}
             errorElement={<ErrorPage />}
           />
           <Route

@@ -171,14 +171,14 @@
     .left {
       position: sticky;
       top: 0;
-      width: 15%;
-      height: 100%;
+      width: 20%;
+      height: 130%;
       // background-color: rebeccapurple;
       @include flex(space-between, flex-start, column);
       border-right: 1px solid rgb(206, 206, 206);
       .top {
         width: 100%;
-        height: 90%;
+        height: 100%;
         gap: 10px;
 
         h1 {
@@ -190,12 +190,11 @@
         ul {
           width: 100%;
           height: 100%;
-          gap: 10px;
           @include flex(flex-start, flex-start, column);
           background-color: white;
           list-style: none;
           padding: 5% 10%;
-          gap: 3%;
+          gap: 2%;
 
           li {
             width: 90%;
@@ -260,12 +259,13 @@
       }
     }
     .right {
-      width: 85%;
+      width: 80%;
       height: auto;
       overflow-x: scroll;
       scrollbar-width: none;
+      paint-order: relative;
       table {
-        width: 100%;
+        width: 140%;
         table-layout: fixed;
         overflow-x: scroll;
 

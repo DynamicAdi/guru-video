@@ -1,20 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../../global/navbar'
-import './view.scss'
+import './details.scss'
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from 'react-slick';
-import DetailsCard from './DetailsCard';
+
+import DetailsCard from '../corporate/DetailsCard';
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import SmallLoader from '../../global/loader/SmallLoader';
 
-function ViewAllItems({backend}) {
+function PackageDetails({backend}) {
   const location = useLocation();
     const {id} = location.state;
 
-    
+    const activeTab = 'packages'
     const [data, setData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
@@ -22,8 +20,8 @@ function ViewAllItems({backend}) {
     const getDetails = async () => {
       try {
         setIsLoading(true);
-        const response = await axios.get(`${backend}/corporateDetails/id=${id}`);
-        const boxes = await axios.get(`${backend}/CorporateItems/id=${id}`);
+        const response = await axios.get(`${backend}/packagesDetails/id=${id}`);
+        const boxes = await axios.get(`${backend}/packageItems/id=${id}`);
 
         if (response.status === 200) {
           setData(response.data);
@@ -107,8 +105,9 @@ function ViewAllItems({backend}) {
                     <img src={image} alt="" />
                     </div>
                     ))}
-                {/* </Slider> */}
                 </div>
+
+
 
                 <div className="itemsInList">
                     <h1>What's inside the box?</h1>
@@ -127,14 +126,13 @@ function ViewAllItems({backend}) {
                 <div className="insider">
                     <h1>{item.title}</h1>
                     <p>{item.description}</p>
-                    <h2>₹ {item.discountedPrice}/- <span>₹ {item.actualPrice}/-</span></h2>
                     <div className="tags">
                         <div className="tag">{item.items.length} Items</div>
                       {item.tags.map((item) => (
                         <div className="tag" key={item}>{item}</div>
                       ))}
                     </div>
-                  <Link to={"/corporate/checkout"} state={{name: item.title}}> 
+                  <Link to={"/packages/checkout"} state={{name: item.title, activeTab: activeTab}}> 
                     <button>Buy now</button>
                   </Link>
                 </div>
@@ -145,4 +143,4 @@ function ViewAllItems({backend}) {
   )
 }
 
-export default ViewAllItems
+export default PackageDetails

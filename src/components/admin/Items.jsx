@@ -10,6 +10,8 @@ function Items() {
   const [title, setTitle] = useState('');
 
     useEffect(() => {
+      console.log(img);
+      
         if ( typeof arry === "object") {
             setTitle("Orders")
         }
@@ -40,7 +42,7 @@ function Items() {
                )
             }
             if (typeof item === "string" && item.startsWith("http")) {
-                return <img className="ok" key={index} src={img} alt={`Image ${index}`} />
+                return <img className="ok" key={item._id} src={item} alt={`Image ${index}`} />
             }
             if (typeof item === "string") {
                return <input type="text" value={item} key={index} className="tag" onChange={(e) => setItem(e.target.value)} />

@@ -6,16 +6,35 @@ import axios from 'axios';
 import SmallLoader from '../../global/loader/SmallLoader';
 
 function Corporate({backend}) {
-  const url = 'http://localhost:8080'
+  // const backend = 'http://localhost:8080'
   const [data, setData] = useState([]);
   const tabs = ["Basic", "Advanced", "Luxury"]
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [loading, setLoading] = useState(false)
+  const [href, setHref] = useState('');
+
+  useEffect(() => {
+    if (window.location.href.includes("/packages")) {
+      setHref('packages')
+    }
+    if (window.location.href.includes("/corporate")) {
+      setHref('CorporateList')
+    }
+  }, []);
 
   const getFood = async () => {
+    let route;
+    console.log(href);
+    
+    if (href==="corporate") {
+      route = 'CorporateList'
+    }
+    if (href==="packages") {
+      route = 'packages'
+    }
     try {
       setLoading(true);
-      const response = await axios.get(`${url}/CorporateList`);
+      const response = await axios.get(`${backend}/${href}`);
       setData(response.data);
       
       setLoading(false);
@@ -32,6 +51,8 @@ function Corporate({backend}) {
 
   useEffect(() => {
     getFood();
+    // console.log(href);
+    
   }, [activeTab]);
   const filterMenuItems = (data) => {
     if(activeTab === "") return data;
@@ -65,8 +86,8 @@ function Corporate({backend}) {
       title={item.title}
       description={item.description}
       image={item.image}
-      actualPrice={item.actualPrice}
-      discountedPrice={item.discountedPrice}
+      actualPrice={item?.actualPrice}
+      discountedPrice={item?.discountedPrice}
       />     
       ))}
 

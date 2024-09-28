@@ -31,8 +31,6 @@ function Form({ backend }) {
 
   const [imageUrl, setImageUrl] = useState(image || []);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [img, setImg] = useState(image || "");
-  const [foodItems, setFoodItems] = useState({});
 
   const [nextPhase, setnextPhase] = useState(false);
   const [corporate, setCorporate] = useState({
@@ -76,6 +74,10 @@ function Form({ backend }) {
 
   const handleRemoveTag = (tagToRemove) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
+    setCorporate((prevCorporate) => ({
+     ...prevCorporate,
+      items: prevCorporate.items.filter((item) => item!== tagToRemove),
+    }));
   };
 
   const uploadImage = async (e) => {
@@ -100,16 +102,11 @@ function Form({ backend }) {
           },
         }
       );
-      tab === "Packages" &&
-        (setImg(response.data.secure_url),
-        setCorporate({ ...corporate, image: response.data.secure_url }));
-
-      tab === "Corporate" &&
-        (setImageUrl((img) => [...img, response.data.secure_url]),
+        setImageUrl((img) => [...img, response.data.secure_url]),
         setCorporate((prevCorporate) => ({
           ...prevCorporate,
           image: [...prevCorporate.image, response.data.secure_url],
-        })))
+        }))
 
       setLoading(false);
     } catch (error) {
@@ -138,10 +135,14 @@ function Form({ backend }) {
   };
   const removeTextTag = (tagToRemove) => {
     setTextTags(textTags.filter((tag) => tag !== tagToRemove));
+    setCorporate((prevCorporate) => ({
+     ...prevCorporate,
+      tags: prevCorporate.tags.filter((tag) => tag!== tagToRemove),
+    }));
   };
 
   const isDisabled = textTags.length === 4 ? true : false;
-  // const Disabled = data.map((item) => item.name === tags[0] ? true : false);
+  const disableImageUpload = imageUrl.length === 5 || loading ? true : false;
   const nextPhaseHandler = (e) => {
     e.preventDefault();
     if (
@@ -211,9 +212,10 @@ function Form({ backend }) {
       const response = await axios.post(`${url}/createPackages`, {
         name: corporate.name,
         description: corporate.description,
-        image: img,
+        image: corporate.image,
         catogery: corporate.catogery,
         items: corporate.items,
+        tags: corporate.tags,
       });
       if (response.status === 200) {
         setCorporate({
@@ -222,6 +224,7 @@ function Form({ backend }) {
           catogery: "",
           image: "",
           items: [],
+          tags: [],
         });
         setLoading(false);
         const url = window.location.href;
@@ -239,9 +242,10 @@ function Form({ backend }) {
         id: id, // Update the id with the actual id of the corporate you want to update
         name: corporate.name,
         description: corporate.description,
-        image: img,
+        image: corporate.image,
         catogery: corporate.catogery,
         items: corporate.items,
+        tags: corporate.tags,
       });
       if (response.status === 200) {
         setLoading(false);
@@ -462,7 +466,7 @@ function Form({ backend }) {
                 {loading ? (
                   <SmallLoader />
                 ) : (
-                  data &&
+                  imageUrl &&
                   imageUrl.map((item, index) => (
                     <div className="imgContainer" key={index}>
                       <button
@@ -483,7 +487,7 @@ function Form({ backend }) {
                 placeholder="Upload your image"
                 value={""}
                 onChange={(e) => uploadImage(e)}
-                disabled={loading ? true : false}
+                disabled={disableImageUpload}
               />
               <div className="btns" style={{ width: "20%" }}>
                 <button
@@ -535,48 +539,40 @@ function Form({ backend }) {
                   setCorporate({ ...corporate, description: e.target.value })
                 }
               />
-              {img !== "" ? (
-                <>
-                  <div className="imgCont" style={{ position: "relative" }}>
-                    <div
-                      style={{
-                        position: "absolute",
-                        right: "-2%",
-                        top: "-8%",
-                        zIndex: 10,
-                        width: "2rem",
-                        height: "2rem",
-                        background: "crimson",
-                        borderRadius: "100px",
-                        color: "white",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        fontSize: "1.6rem",
-                        cursor: "pointer",
-                      }}
-                      onClick={() => setImg("")}
-                    >
-                      &times;
+              <div className="imgViewer">
+                {loading ? (
+                  <SmallLoader />
+                ) : (
+                  imageUrl &&
+                  imageUrl.map((item, index) => (
+                    <div className="imgContainer" key={index}>
+                      <button
+                        className="remove-img"
+                        onClick={() => removeImage(index)}
+                      >
+                        &times;
+                      </button>
+                      <img src={item} alt={index} />
                     </div>
-                    <img src={img} alt="uploaded" className="uploadedImage" />
-                  </div>
-                </>
-              ) : (
-                <input
-                  required
-                  onChange={(e) => uploadImage(e)}
-                  accept="image/*"
-                  type="file"
-                />
-              )}
+                  ))
+                )}
+              </div>
+
+              <input
+                type="file"
+                accept="image/*"
+                placeholder="Upload your image"
+                value={""}
+                onChange={(e) => uploadImage(e)}
+                disabled={disableImageUpload}
+              />
               <select required defaultValue={corporate.catogery} onChange={(e) => setCorporate({...corporate, catogery: e.target.value})}>
                 <option value="">Select the category</option>
                 <option value="basic">Basic</option>
                 <option value="advanced">Advanced</option>
                 <option value="luxury">Luxury</option>
               </select>
-
+                
               <div className="tag-input-container">
                 <div className="tags-container">
                   {tags.length === 0 && (
@@ -608,6 +604,41 @@ function Form({ backend }) {
                       </option>
                     ))}
               </select>
+              <div className="tag-input-container" style={{ height: "80px" }}>
+                <div className="tags-container">
+                  {textTags.length === 0 && (
+                    <h3 className="placeholder">
+                      Add Tags from below {"(max - 4)"}
+                    </h3>
+                  )}
+                  {textTags.map((tag, index) => (
+                    <div className="tag" key={index}>
+                      {tag}
+                      <span
+                        className="remove-tag"
+                        onClick={() => removeTextTag(tag)}
+                      >
+                        &times;
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && handleAddTextTag(e)}
+                placeholder={
+                  isDisabled
+                    ? "Maximum limit reached"
+                    : "Add Tags and press enter"
+                }
+                style={
+                  isDisabled ? { cursor: "not-allowed" } : { cursor: "text" }
+                }
+                disabled={isDisabled}
+              />
               {id === undefined ? (
                 <button
                   className="glow"

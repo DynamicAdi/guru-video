@@ -11,7 +11,7 @@ function CorporateCard({id, title, description, image, actualPrice, discountedPr
     {/* <div className="pos" style={veg ? {borderColor: 'limegreen'} : {borderColor: 'brown'}}><div className="dot" style={veg ? {background: 'limegreen'} : {background: 'brown'}}></div></div> */}
       <h1>{title}</h1>
       <p>{description}</p>
-      <h3>₹ {discountedPrice} <span>₹ {actualPrice}</span></h3>
+    {discountedPrice && <h3>₹ {discountedPrice} <span>₹ {actualPrice}</span></h3>}
     </div>
   </div>
     </Link>
