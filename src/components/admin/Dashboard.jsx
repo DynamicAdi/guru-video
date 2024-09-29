@@ -23,7 +23,8 @@ import { LuPackagePlus } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
 import SmallLoader from "../../global/loader/SmallLoader";
 
-function Dashboard({ logout, backend }) {
+function Dashboard({ logout }) {
+  const backend = "http://localhost:8080"
   const tabs = [
     { title: "Admins", icon: RiAdminLine },
     { title: "Foods", icon: IoFastFoodOutline },
@@ -857,7 +858,8 @@ function Dashboard({ logout, backend }) {
                                               ) : item[key] === false ? (
                                                 "No"
                                               ) : Array.isArray(item[key]) ? (
-                                                key === "statusHistory" ? (
+                                                key === "statusHistory" ? 
+                                                (
                                                   <Link
                                                     to={"/dashboard/history"}
                                                     state={{
@@ -871,14 +873,22 @@ function Dashboard({ logout, backend }) {
                                                   >
                                                     check history
                                                   </Link>
-                                                ) : (
+                                                ) :
+                                                key === "mynote" ? (
+                                                  <Link 
+                                                  style={{
+                                                    textDecoration: "none",
+                                                    color: "royalblue",
+                                                  }}
+                                                  to={'/dashboard/notes'} state={{id: item._id}}>
+                                                    View notes
+                                                  </Link>)
+                                                : (
                                                   <Link
                                                     to={`/dashboard/items`}
                                                     state={{
                                                       id: item._id,
                                                       arry: item[key],
-                                                      img: item.image,
-                                                      tag: item.tags,
                                                       ttle: item.title,
                                                     }}
                                                     style={{

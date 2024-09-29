@@ -4,15 +4,6 @@ $half-spacing-unit: $base-spacing-unit / 2;
 $color-alpha: #1772FF;
 $color-form-highlight: #EEEEEE;
 
-*, *:before, *:after {
-	box-sizing:border-box;
-}
-
-body {
-	padding:$base-spacing-unit;
-	margin:0;
-}
-
 
 .table {
 	width: 90%;

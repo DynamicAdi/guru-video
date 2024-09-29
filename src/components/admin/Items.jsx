@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Items.scss";
 import DetailsCard from "../corporate/DetailsCard";
-import { CiEdit, CiTrash } from "react-icons/ci";
 
 function Items() {
   const location = useLocation();
-  const {id, arry, img, tag, ttle } = location.state || [];
+  const {id, arry, ttle } = location.state || [];
   const [title, setTitle] = useState('');
-
+  const [note, setNote] = useState('');
     useEffect(() => {
         if ( typeof arry === "object") {
             setTitle("Orders")
@@ -35,10 +34,10 @@ function Items() {
                 <div className="bottom">
                   <h2>{arry.length} items</h2>
                   <div style={{display: 'flex', gap: '0.8rem'}}>
-                  <h2>{arry.reduce((sum, item) => sum + item.price, 0)} /-</h2>
                 <Link to={'/invoice'} state={{id: id}}>
                   <button className="glow">Generate Invoice</button>
                 </Link>
+                  <h2>{arry.reduce((sum, item) => sum + item.price, 0)} /-</h2>
                   </div>
                 </div>
                </>
@@ -48,8 +47,11 @@ function Items() {
                 return <img className="ok" key={item._id} src={item} alt={`Image ${index}`} />
             }
             if (typeof item === "string") {
-               return <input type="text" value={item} key={index} className="tag" onChange={(e) => setItem(e.target.value)} />
+               return <input type="text" value={item} key={index} className="tag" />
             }
+            if (typeof item === "string") {
+              return <input type="text" value={item} key={index} className="tag" />
+           }
         })}
       </div>
     ) : (

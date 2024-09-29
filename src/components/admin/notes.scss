@@ -1,0 +1,96 @@
+@import "../../sass/global";
+
+.notes {
+    @include fullScreen($h: auto);
+    @include flex();
+    .child {
+        width: 95%;
+        height: 80%;
+        
+        h1 {
+            font-size: 3rem;
+        }
+        .boxes {
+            // display: flex;
+            @include flex(flex-start, flex-start, row);
+            gap: 0.5rem;
+            overflow: auto;
+            .box {
+                margin-top: 1%;
+                width: 22rem;
+                height: 15rem;
+                background-color: #eeeeee;
+                border-radius: 16px;
+                padding: 0.6rem 1rem;
+                cursor: pointer;
+                transition: 0.3s all ease;
+                position: relative;
+
+            .editor {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                background-color: #00000020;
+                backdrop-filter: blur(2px);
+                z-index: -10;
+                opacity: 0;
+                border-radius: 16px;
+                transition: 0.3s all ease;
+                @include flex();
+                gap: 1rem;
+
+                .edit {
+                    padding: 1rem;
+                    border-radius: 100px;
+                    @include flex();
+                    transition: 0.2 all cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    &:hover {
+                        background: white;
+                        color: $primary;
+                    }
+                }
+            }
+                &:hover {
+                    transform: scale(0.9);
+                    background: $primary;
+                    .editor {
+                        opacity: 1;
+                        z-index: 10;
+                    }
+                }
+                p {
+                    font-size: 1.1rem;
+                    // text-wrap: balance;
+                }
+                }
+        }
+
+        .addition {
+            // width: 100%;
+            height: auto;
+            // margin-top: 1%;
+            background-color: #ffffff20;
+            backdrop-filter: blur(2px);
+            padding: 2% 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            // padding-bottom: 0;
+            textarea {
+                width: 30rem;
+                height: 15rem;
+                resize: none;
+                padding: 0.5rem;
+                outline: none;
+                border: none;
+                border-radius: 10px;
+                background: #eeeeee;
+                font-size: 1.2rem;
+            }
+            .glow {
+                width: fit-content;
+            }
+        }
+    }
+}

@@ -20,6 +20,7 @@ import History from "./components/history/page.jsx";
 import BuyNow from "./components/purchase/index.jsx";
 import PackageDetails from "./components/packages/details.jsx";
 import Invoice from "./components/invoice/index.jsx";
+import Notes from "./components/admin/Notes.jsx";
 
 
 const URL = import.meta.env.VITE_BACKEND_URL;
@@ -75,6 +76,11 @@ createRoot(document.getElementById("root")).render(
           <Route
             path="/dashboard"
             element={<Admin backend={URL} />}
+            errorElement={<ErrorPage />}
+          />
+            <Route
+            path="/dashboard/notes"
+            element={<Notes backend={URL} />}
             errorElement={<ErrorPage />}
           />
           <Route
