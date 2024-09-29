@@ -23,8 +23,7 @@ import { LuPackagePlus } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
 import SmallLoader from "../../global/loader/SmallLoader";
 
-function Dashboard({ logout }) {
-  const backend = "http://localhost:8080";
+function Dashboard({ logout, backend }) {
   const tabs = [
     { title: "Admins", icon: RiAdminLine },
     { title: "Foods", icon: IoFastFoodOutline },
@@ -119,7 +118,6 @@ function Dashboard({ logout }) {
   const getStatus = async (route) => {
     try {
       setLoading(true);
-      // setStatus(true)
       const response = await axios.get(`${backend}/${route}`);
       const data = response.data;
       const initialStatus = {};
@@ -127,15 +125,12 @@ function Dashboard({ logout }) {
         initialStatus[product._id] = product.status;
       });
       setSelectedStatus(initialStatus);
-      // setStatus(false);
       setLoading(false);
     } catch (e) {
       console.log(e);
     }
   };
-  // const refetchStatus = async () => {
-  //   await getStatus();
-  // }
+
 
   useEffect(() => {
     activeTab === "Orders" ? getStatus("getStatus") : setLoading(false);
@@ -880,6 +875,7 @@ function Dashboard({ logout }) {
                                                   <Link
                                                     to={`/dashboard/items`}
                                                     state={{
+                                                      id: item._id,
                                                       arry: item[key],
                                                       img: item.image,
                                                       tag: item.tags,

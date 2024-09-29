@@ -1,0 +1,69 @@
+@import '../../sass/global';
+
+.box-cont {
+    // @include fullScreen($w: 90vw);
+    height: auto;
+    @include flex();
+    overflow: hidden;
+    .child {
+        width: 90%;
+        height: auto;
+        background: #222222;
+        border-radius: 10px;
+        @include flex(flex-start, flex-start, column);
+        color: white;
+        overflow: auto;
+        padding-bottom: 2rem;
+        .upper {
+            width: 100%;
+            height: 12rem;
+            @include flex(space-between);
+            padding: 0.5rem;
+            .billing {
+                width: 30%;
+                height: 100%;
+                @include flex(flex-start, flex-start, column);
+                padding: 0.5rem;
+                h2 {
+                    font-size: 2rem;
+                    @extend .font-mon;
+                    font-weight: 600;
+                }
+                p {
+                    font-size: 1rem;
+                }
+                &.invoice {
+                    width: 20%;
+                    h2 {
+                        font-size: 2.3rem;
+                        // @extend .font-p;
+                    }
+                }
+            }
+            
+        .image {
+            width: 20%;
+            height: 90%;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        }
+
+        .middle {
+            margin-top: 2%;
+            width: 100%;
+            @include flex();
+        }
+    }
+}
+
+.lower {
+    position: fixed;
+    bottom: 0;
+    width: 100vw;
+    height: 6rem;
+    @include flex();
+}

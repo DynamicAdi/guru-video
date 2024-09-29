@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Items.scss";
 import DetailsCard from "../corporate/DetailsCard";
 import { CiEdit, CiTrash } from "react-icons/ci";
 
 function Items() {
   const location = useLocation();
-  const { arry, img, tag, ttle } = location.state || [];
+  const {id, arry, img, tag, ttle } = location.state || [];
   const [title, setTitle] = useState('');
 
     useEffect(() => {
-      console.log(img);
-      
         if ( typeof arry === "object") {
             setTitle("Orders")
         }
@@ -36,7 +34,12 @@ function Items() {
                <DetailsCard key={index} title={item.name} image={item.image} price={item.price} desc={item.description}/>
                 <div className="bottom">
                   <h2>{arry.length} items</h2>
+                  <div style={{display: 'flex', gap: '0.8rem'}}>
                   <h2>{arry.reduce((sum, item) => sum + item.price, 0)} /-</h2>
+                <Link to={'/invoice'} state={{id: id}}>
+                  <button className="glow">Generate Invoice</button>
+                </Link>
+                  </div>
                 </div>
                </>
                )

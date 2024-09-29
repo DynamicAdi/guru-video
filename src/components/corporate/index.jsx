@@ -5,33 +5,24 @@ import CorporateCard from './card';
 import axios from 'axios';
 import SmallLoader from '../../global/loader/SmallLoader';
 
-function Corporate({backend}) {
+function Corporate({backend, href}) {
   // const backend = 'http://localhost:8080'
   const [data, setData] = useState([]);
   const tabs = ["Basic", "Advanced", "Luxury"]
   const [activeTab, setActiveTab] = useState(tabs[0]);
-  const [loading, setLoading] = useState(false)
-  const [href, setHref] = useState('');
+  const [loading, setLoading] = useState(true)
+  // const [href, setHref] = useState('');
 
-  useEffect(() => {
-    if (window.location.href.includes("/packages")) {
-      setHref('packages')
-    }
-    if (window.location.href.includes("/corporate")) {
-      setHref('CorporateList')
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (window.location.href.includes("/packages")) {
+  //     setHref('packages')
+  //   }
+  //   if (window.location.href.includes("/corporate")) {
+  //     setHref('CorporateList')
+  //   }
+  // }, []);
 
   const getFood = async () => {
-    let route;
-    console.log(href);
-    
-    if (href==="corporate") {
-      route = 'CorporateList'
-    }
-    if (href==="packages") {
-      route = 'packages'
-    }
     try {
       setLoading(true);
       const response = await axios.get(`${backend}/${href}`);
@@ -49,11 +40,11 @@ function Corporate({backend}) {
   }
 
 
-  useEffect(() => {
-    getFood();
-    // console.log(href);
-    
-  }, [activeTab]);
+  useEffect(() => {    
+    // setTimeout(() => {
+      getFood();
+    // }, 4000)
+  }, [activeTab, href]);
   const filterMenuItems = (data) => {
     if(activeTab === "") return data;
     return data.filter(item => item.catogery === activeTab.toLocaleLowerCase());

@@ -2,6 +2,7 @@ import React, {lazy} from "react"
 import VideoScreen from "./funcs/videoScreen"
 import Selection from "./render/Selection"
 import Packages from "./components/packages"
+import Invoice from "./components/invoice"
 
 
 const Navbar = lazy(() => import("./global/navbar"))
@@ -17,8 +18,7 @@ const Footer = lazy(() => import("./global/footer"))
 function RenderAllComponents({backend}) {
   return (
     <>
-    <Navbar />
-    {/* <VideoScreen /> */}
+    {/* <Navbar />
     <Render backend={backend}/>
     <About />
     <Selection backend={backend}/>
@@ -28,7 +28,8 @@ function RenderAllComponents({backend}) {
     <Packages backend={backend}/>
     <Testmonials />
     <FAQ backend={backend}/>
-    <Footer />
+    <Footer /> */}
+    <Invoice />
     </>
   )
 }
