@@ -6,7 +6,7 @@
     @include flex();
     overflow: hidden;
     .child {
-        width: 90%;
+        width: 40%;
         height: auto;
         background: #222222;
         border-radius: 10px;
@@ -16,8 +16,8 @@
         padding-bottom: 2rem;
         .upper {
             width: 100%;
-            height: 12rem;
-            @include flex(space-between);
+            height: auto;
+            @include flex(space-between, flex-start);
             padding: 0.5rem;
             .billing {
                 width: 30%;
@@ -25,25 +25,26 @@
                 @include flex(flex-start, flex-start, column);
                 padding: 0.5rem;
                 h2 {
-                    font-size: 2rem;
+                    font-size: 1.3rem;
                     @extend .font-mon;
                     font-weight: 600;
                 }
                 p {
-                    font-size: 1rem;
+                    font-size: 12px;
                 }
                 &.invoice {
-                    width: 20%;
+                    width: 30%;
                     h2 {
-                        font-size: 2.3rem;
+                        font-size: 2rem;
                         // @extend .font-p;
                     }
                 }
             }
             
         .image {
-            width: 20%;
-            height: 90%;
+            width: 30%;
+            height: 50%;
+            // background-color: red;
             img {
                 width: 100%;
                 height: 100%;

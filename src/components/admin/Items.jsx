@@ -33,12 +33,12 @@ function Items() {
                <DetailsCard key={index} title={item.name} image={item.image} price={item.price} desc={item.description}/>
                 <div className="bottom">
                   <h2>{arry.length} items</h2>
-                  <div style={{display: 'flex', gap: '0.8rem'}}>
+                  {/* <div style={{display: 'flex', gap: '0.8rem'}}> */}
                 <Link to={'/invoice'} state={{id: id}}>
                   <button className="glow">Generate Invoice</button>
                 </Link>
                   <h2>{arry.reduce((sum, item) => sum + item.price, 0)} /-</h2>
-                  </div>
+                  {/* </div> */}
                 </div>
                </>
                )

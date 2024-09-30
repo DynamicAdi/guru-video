@@ -22,7 +22,7 @@ $color-form-highlight: #EEEEEE;
 .tableRow {
 	display:flex;
 	width:100%;
-	padding:($half-spacing-unit * 1.5) 5rem;
+	padding:($half-spacing-unit * 1.5) 0px;
 	
     &.last {
         border-top: 2px solid white;

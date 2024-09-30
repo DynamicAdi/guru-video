@@ -8,8 +8,9 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-function Invoice({backend}) {
+function Invoice() {
   const location = useLocation();
+  const backend = 'http://localhost:8080'
   const { id } = location.state || "";
   const [loading, setLoading] = useState(false);
   const [mailSend, setMailSend] = useState(false);
@@ -21,6 +22,7 @@ function Invoice({backend}) {
       const response = await axios.get(`${backend}/invoice/${id}`);
       if (response.status === 200) {
         setData(response.data);
+        // console.log(data[0].email);
         
         setLoading(false);
       }
@@ -34,7 +36,7 @@ function Invoice({backend}) {
   }, [])
 
   const ref = useRef();
-  const sendPdf = async () => {
+  const SendPdf = async () => {
     const input = ref.current;
 
 
@@ -49,11 +51,13 @@ function Invoice({backend}) {
         });
   
         // Add the canvas image to the PDF with full width and height
-        pdf.addImage(imgData, "PNG", 0, 0, pageWidth, pageHeight);
-
+        pdf.addImage(imgData, "PNG", 0, 20, pageWidth, pageHeight);
+        // pdf.save();
+    
       const pdfFile = pdf.output("blob");
       const formData = new FormData();
       formData.append("pdf", pdfFile, "invoice.pdf");
+      // formData.append("customerEmail", `panadarsh69@gmail.com`);
       formData.append("customerEmail", `${data[0].email}`);
       try {
           setMailSend(true);
@@ -66,7 +70,7 @@ function Invoice({backend}) {
 
         if (res.status===200) {
             const url = window.location.href;
-            window.location.replace(url.split("/corporate").slice(0, -1).join("/dashboard"));
+            window.location.replace(url.split("/invoice").slice(0, -1).join("/dashboard"));
             setMailSend(false);
         }
     } catch (e) {
@@ -87,16 +91,16 @@ function Invoice({backend}) {
             <SmallLoader />
           ) : data.length > 0 ? data.map((data, index) => 
             (
-                <>
+                <div key={index} style={{width: '100%'}}>
                   <div className="upper">
                     <div className="billing">
-                      <h2>Customer information</h2>
+                      <h2>Customer Info</h2>
                       <p>{data.name}</p>
                       <p>{data.email}</p>
                       <p>{data.phone}</p>
-                      <address>
+                      <p>
                         {data.address}
-                      </address>
+                      </p>
                     </div>
     
                     <div className="image">
@@ -110,9 +114,9 @@ function Invoice({backend}) {
                     </div>
                   </div>
                   <div className="middle">
-                    <Table data={data.items} />
+                    <Table data={data.items} noOfPeople={data.noOfPeople} />
                   </div>
-                </>
+                </div>
               )
         )  : (
             <div>
@@ -123,8 +127,8 @@ function Invoice({backend}) {
       </div>
       <div className="lower">
         <button className="glow sec"
-        style={mailSend ? {cursor: 'not-allowed', opacity: 0.5} : {cursor: 'pointer', opacity: 1}}
-        onClick={mailSend ? () => {} : () => sendPdf()}>{mailSend ? "Sending...": "Send Invoice to customer"}</button>
+        style={mailSend ? {cursor: 'not-allowed', opacity: 0.8} : {cursor: 'pointer', opacity: 1}}
+        onClick={mailSend ? () => {} : () => SendPdf()}>{mailSend ? "Sending...": "Send Invoice to customer"}</button>
       </div>
     </>
   );
