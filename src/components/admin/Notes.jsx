@@ -5,8 +5,8 @@ import { useLocation } from "react-router-dom";
 import SmallLoader from '../../global/loader/SmallLoader';
 import {MdEdit, MdDeleteOutline} from 'react-icons/md'
 
-function Notes() {
-  const backend = 'http://localhost:8080';
+function Notes({backend}) {
+  // const backend = 'http://localhost:8080';
   const [data, setData] = useState([]);
   const [loading, setloading] = useState(true);
   const [note, setNote] = useState('');

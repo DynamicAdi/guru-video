@@ -43,7 +43,7 @@ function Invoice({backend}) {
         const pageWidth = canvas.width;
         const pageHeight = canvas.height;
         const pdf = new jsPDF({
-          orientation: "landscape",
+          orientation: "portrait",
           unit: "px",
           format: [pageWidth, pageHeight],
         });

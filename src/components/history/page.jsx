@@ -4,8 +4,8 @@ import { useLocation } from 'react-router-dom'
 import axios from "axios"
 import SmallLoader from '../../global/loader/SmallLoader';
 
-function History() {
-    const backend = "http://localhost:8080"
+function History({backend}) {
+    // const backend = "http://localhost:8080"
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([])
     const location = useLocation()

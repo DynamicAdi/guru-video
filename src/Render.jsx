@@ -20,8 +20,8 @@ function RenderAllComponents({backend}) {
     <Render backend={backend}/>
     <About />
     <Selection backend={backend}/>
-    <Brands backend={backend} />
     <Services backend={backend}/>
+    <Brands backend={backend} />
     <PopularItems backend={backend} />
     <Packages backend={backend}/>
     <Testmonials />

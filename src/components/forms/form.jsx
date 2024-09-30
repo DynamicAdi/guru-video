@@ -21,7 +21,7 @@ function Form({ backend }) {
     tab,
   } = location.state || "";
 
-  const url = "http://localhost:8080";
+  // const url = "http://localhost:8080";
   const [tags, setTags] = useState(items || []);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -47,7 +47,7 @@ function Form({ backend }) {
   const getFoods = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${url}/foods`);
+      const response = await axios.get(`${backend}/foods`);
       setData(response.data);
       setLoading(false);
     } catch (error) {
@@ -175,7 +175,7 @@ function Form({ backend }) {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post(`${url}/addCorporate`, {
+      const response = await axios.post(`${backend}/addCorporate`, {
         name: corporate.name,
         description: corporate.description,
         actualPrice: corporate.actualPrice,
@@ -209,7 +209,7 @@ function Form({ backend }) {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post(`${url}/createPackages`, {
+      const response = await axios.post(`${backend}/createPackages`, {
         name: corporate.name,
         description: corporate.description,
         image: corporate.image,
@@ -238,7 +238,7 @@ function Form({ backend }) {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.put(`${url}/updatePackages`, {
+      const response = await axios.put(`${backend}/updatePackages`, {
         id: id, // Update the id with the actual id of the corporate you want to update
         name: corporate.name,
         description: corporate.description,
@@ -261,7 +261,7 @@ function Form({ backend }) {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.put(`${url}/updateCorporate`, {
+      const response = await axios.put(`${backend}/updateCorporate`, {
         id: id,
         name: corporate.name,
         description: corporate.description,

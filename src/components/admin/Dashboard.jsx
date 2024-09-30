@@ -23,8 +23,8 @@ import { LuPackagePlus } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
 import SmallLoader from "../../global/loader/SmallLoader";
 
-function Dashboard({ logout }) {
-  const backend = "http://localhost:8080"
+function Dashboard({ logout, backend }) {
+  // const backend = "http://localhost:8080"
   const tabs = [
     { title: "Admins", icon: RiAdminLine },
     { title: "Foods", icon: IoFastFoodOutline },
