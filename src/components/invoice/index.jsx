@@ -8,9 +8,9 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-function Invoice() {
+function Invoice({backend}) {
   const location = useLocation();
-  const backend = 'http://localhost:8080'
+  // const backend = 'http://localhost:8080'
   const { id } = location.state || "";
   const [loading, setLoading] = useState(false);
   const [mailSend, setMailSend] = useState(false);
