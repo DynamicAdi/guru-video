@@ -59,10 +59,7 @@ function Checkout({backend}) {
         foodPreference: functionDetails.prefrence,
         items: items,
       });
-
-      console.log(data);
       if (data.status === 200) {
-        alert("Order Placed Successfully!");
         navigate("/");
       }
     } catch (error) {
@@ -111,7 +108,6 @@ function Checkout({backend}) {
       return null;
     }
     setStepForm(3);
-    console.log(fullDetails);
   };
 
   const handleInputChange = (e) => {

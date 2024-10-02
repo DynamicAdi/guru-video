@@ -8,14 +8,15 @@ function Login({backend}) {
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
-    const handleCalls = async () => {
 
+
+    const handleCalls = async () => {
         if (password.length >= 8 && email.length > 0) {
           setLoading(true)
             await axios.post(`${backend}/admins/new`, {
                 name: name,
                 email: email,
-                password: password
+                password: password,
             })
             setLoading(false);
             alert('Admin created successfully!')
@@ -24,7 +25,7 @@ function Login({backend}) {
         alert('Password must be at least 8 characters')
        }
         else {
-        alert('Please enter both email and password')
+        alert('Please enter all credentials')
        }
     }
   return (

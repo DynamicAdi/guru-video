@@ -25,7 +25,9 @@
   }
 
   .upper {
+    @include flex(center, center, column);
         margin-bottom: 6%;
+        padding: 0;
       .sign {
         //   padding-top: 40px;
     color: orange;

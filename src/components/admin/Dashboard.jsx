@@ -22,6 +22,8 @@ import { Link } from "react-router-dom";
 import { LuPackagePlus } from "react-icons/lu";
 import { BiCategoryAlt } from "react-icons/bi";
 import SmallLoader from "../../global/loader/SmallLoader";
+import { askForPermission } from "../../funcs/firebase";
+// import {requestForToken} from "../../funcs/firebase.js"
 
 function Dashboard({ logout, backend }) {
   // const backend = "http://localhost:8080"
@@ -52,6 +54,7 @@ function Dashboard({ logout, backend }) {
   const [catogery, setCatogery] = useState("");
   const [catogeries, setCatogeries] = useState([]);
   const [createCatogery, setCreateCatogery] = useState(false);
+
 
   const [admin, setAdmin] = useState(false);
   const [role, setRole] = useState("admin");
@@ -156,7 +159,8 @@ function Dashboard({ logout, backend }) {
             key !== "_id" &&
             key !== "__v" &&
             key !== "orders" &&
-            key !== "status"
+            key !== "status" &&
+            key !== "firebaseToken"
         )
       : [];
 
@@ -254,7 +258,6 @@ function Dashboard({ logout, backend }) {
       name: name,
       email: email,
       password: password,
-      role: role,
     });
     console.log("User updated:", response.data);
     setVisible(false);
@@ -826,7 +829,8 @@ function Dashboard({ logout, backend }) {
                                     (key) =>
                                       key !== "_id" &&
                                       key !== "__v" &&
-                                      key !== "status"
+                                      key !== "status" &&
+                                      key !== "firebaseToken"
                                   )
                                   .map((key) => {
                                     return (

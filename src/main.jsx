@@ -5,7 +5,7 @@ import "./universal.scss";
 import ErrorPage from "./global/error/index.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Menu from "./components/menu/index.jsx";
-import Corporate from "./components/corporate/index.jsx";
+import Corporate from ".backend: 'notificationsents/corporate/index.jsx";
 import { ArrayProvider } from "./funcs/context.jsx";
 import Admin from "./components/admin/index.jsx";
 import Login from "./components/admin/New.jsx";
@@ -21,6 +21,7 @@ import BuyNow from "./components/purchase/index.jsx";
 import PackageDetails from "./components/packages/details.jsx";
 import Invoice from "./components/invoice/index.jsx";
 import Notes from "./components/admin/Notes.jsx";
+import Notifications from "./components/admin/notifications/page.jsx";
 
 
 const URL = import.meta.env.VITE_BACKEND_URL;
@@ -123,28 +124,11 @@ createRoot(document.getElementById("root")).render(
             element={<AboutUs />}
             errorElement={<ErrorPage />}
           />
-          {/* <Route
-            path="/menu/:category"
-            element={<Menu />}
+           <Route
+            path="/notifications"
+            element={<Notifications backend={URL}/>}
             errorElement={<ErrorPage />}
           />
-          <Route
-            path="/dashboard"
-            element={<Admin />}
-            errorElement={<ErrorPage />}
-          />
-          <Route
-            path="/edit"
-            element={<Update />}
-            errorElement={<ErrorPage />}
-          />
-
-
-          <Route
-            path="/admin/login"
-            element={<Login />}
-            errorElement={<ErrorPage />}
-          /> */}
         </Routes>
       </ArrayProvider>
     </BrowserRouter>
