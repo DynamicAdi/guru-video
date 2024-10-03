@@ -25,8 +25,8 @@ import SmallLoader from "../../global/loader/SmallLoader";
 import { askForPermission } from "../../funcs/firebase";
 // import {requestForToken} from "../../funcs/firebase.js"
 
-function Dashboard({ logout, backend }) {
-  // const backend = "http://localhost:8080"
+function Dashboard({ logout, backend:url }) {
+  const backend = "http://localhost:8080"
   const tabs = [
     { title: "Admins", icon: RiAdminLine },
     { title: "Foods", icon: IoFastFoodOutline },

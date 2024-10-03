@@ -5,10 +5,12 @@ import "./universal.scss";
 import ErrorPage from "./global/error/index.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Menu from "./components/menu/index.jsx";
-import Corporate from ".backend: 'notificationsents/corporate/index.jsx";
+// import Corporate from "'notificationsents/corporate/index.jsx";
+
 import { ArrayProvider } from "./funcs/context.jsx";
 import Admin from "./components/admin/index.jsx";
 import Login from "./components/admin/New.jsx";
+import Corporate from "./components/corporate/index.jsx";
 import ViewAllItems from "./components/corporate/viewAll.jsx";
 import Checkout from "./components/checkout/index.jsx";
 import Items from "./components/admin/Items.jsx";
