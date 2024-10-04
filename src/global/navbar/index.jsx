@@ -117,9 +117,11 @@ function Navbar() {
           ))}
         </ul>
       </div>
-      <Link to="/corporate">
-        <button className="btns">Corporate Box</button>
-      </Link>
+      <Link to="/contact-us">
+                  <button className={`btns ${open ? "visible" : ""}`}>
+                    Contact us
+                  </button>
+                </Link>
       {/* <AnimatePresence key={tabs.length}> */}
         {isAnimating && (
           <>

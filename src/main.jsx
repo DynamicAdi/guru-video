@@ -64,12 +64,12 @@ createRoot(document.getElementById("root")).render(
           />
            <Route
             path="/packages/checkout"
-            element={<BuyNow backend={URL} />}
+            element={<BuyNow url={URL} />}
             errorElement={<ErrorPage />}
           />
           <Route
             path="/corporate/checkout"
-            element={<BuyNow backend={URL} />}
+            element={<BuyNow url={URL} />}
             errorElement={<ErrorPage />}
           />
           <Route
