@@ -32,6 +32,10 @@ function Navbar() {
       to: "/packages",
     },
     {
+      name: "Corporate box",
+      to: "/corporate",
+    },
+    {
       name: "Menu",
       to: "/menu",
     },
@@ -158,9 +162,9 @@ function Navbar() {
                   </li>
                     </Link>
                 ))}
-                <Link to="/corporate">
+                <Link to="/contact-us">
                   <button className={`btns ${open ? "visible" : ""}`}>
-                    Corporate Box
+                    Contact us
                   </button>
                 </Link>
               </ul>

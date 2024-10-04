@@ -24,6 +24,7 @@ import PackageDetails from "./components/packages/details.jsx";
 import Invoice from "./components/invoice/index.jsx";
 import Notes from "./components/admin/Notes.jsx";
 import Notifications from "./components/admin/notifications/page.jsx";
+import ContactUs from "./components/contact/page.jsx";
 
 
 const URL = import.meta.env.VITE_BACKEND_URL;
@@ -129,6 +130,11 @@ createRoot(document.getElementById("root")).render(
            <Route
             path="/notifications"
             element={<Notifications backend={URL}/>}
+            errorElement={<ErrorPage />}
+          />
+          <Route
+            path="/contact-us"
+            element={<ContactUs backend={URL}/>}
             errorElement={<ErrorPage />}
           />
         </Routes>
