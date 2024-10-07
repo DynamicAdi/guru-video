@@ -43,6 +43,7 @@ function Navbar() {
   const [activeTab, setActive] = useState(tabs[0]);
   const [isAnimating, setIsAnimating] = useState(false);
   const [open, setOpen] = useState(false);
+
       useEffect(() => {
       const hash = window.location.hash;
   
@@ -122,7 +123,6 @@ function Navbar() {
                     Contact us
                   </button>
                 </Link>
-      {/* <AnimatePresence key={tabs.length}> */}
         {isAnimating && (
           <>
             <div className={`links responsive ${open ? "visible" : ""}`}>
@@ -156,7 +156,7 @@ function Navbar() {
                     viewport={{ once: false }}
                     key={i}
                     className={`${activeTab === tab.name ? "active" : ""}`}
-                    onClick={setActive(tab.name)}
+                    onClick={() => setActive(tab.name)}
                   >
                     {/* <Link to={{ pathname: tab.to, search: new URLSearchParams(tab.query).toString() }} style={{ color: "black" }}> */}
                     {tab.name}
@@ -173,7 +173,6 @@ function Navbar() {
             </div>
           </>
         )}
-      {/* </AnimatePresence> */}
     </div>
   );
 }
