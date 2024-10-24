@@ -262,8 +262,19 @@
       width: 80%;
       height: auto;
       overflow-x: scroll;
-      scrollbar-width: none;
       paint-order: relative;
+      &::-webkit-scrollbar {
+        width: 3px;
+        height: 10px;
+      }
+      &::-webkit-scrollbar-track {
+        width: 3px;
+        background-color: #eeeeee;
+      }
+      &::-webkit-scrollbar-thumb {
+        width: 3px;
+        background-color: orange;
+      }
       table {
         width: 140%;
         table-layout: fixed;

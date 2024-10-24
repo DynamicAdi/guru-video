@@ -26,7 +26,6 @@ import Notes from "./components/admin/Notes.jsx";
 import Notifications from "./components/admin/notifications/page.jsx";
 import ContactUs from "./components/contact/page.jsx";
 
-
 const URL = import.meta.env.VITE_BACKEND_URL;
 
 createRoot(document.getElementById("root")).render(
