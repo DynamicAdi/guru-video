@@ -47,7 +47,7 @@ function BuyNow({url}) {
           })
             if (response.status === 200 && email.status === 200) {
                 setLoading(false);
-                window.location.replace("/checkout/thanks")
+                window.location.replace("/corporate/thanks")
             }
         }
         catch (error) {
@@ -77,7 +77,7 @@ function BuyNow({url}) {
           })
             if (response.status === 200 && email.status === 200) {
                 setLoading(false);
-                window.location.replace("/checkout/thanks");
+                window.location.replace("/corporate/thanks");
             }
         }
         catch (error) {
