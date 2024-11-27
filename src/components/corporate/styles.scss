@@ -141,6 +141,7 @@
         cursor: pointer;
         transform: translateY(100%);
         transition: 0.3s all cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        @include flex(flex-end, flex-end, column);
         .pos {
           position: absolute;
           right: 4%;

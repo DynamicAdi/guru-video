@@ -4,6 +4,7 @@ import { BiParty, BiUser, BiCheckDouble } from "react-icons/bi";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import image from "../../assets/image.jpg"
 
 function Checkout({backend}) {
   const location = useLocation();
@@ -136,7 +137,7 @@ function Checkout({backend}) {
       <div className="backme" onClick={() => navigate('/menu')}>Back</div>
       <div className="child">
         <div className="image" style={windowSize ? {display: 'none'} : {display: 'block'}}>
-          <img src="https://picsum.photos/1820" alt="alt from" />
+          <img src={image} alt="alt from" />
         </div>
         <div className="content">
           <div className="uperWala">

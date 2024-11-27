@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./styles.scss";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
+import image from "../../assets/image.jpg";
 
 function BuyNow({url}) {
     const location = useLocation()
@@ -91,7 +92,7 @@ function BuyNow({url}) {
     <div className="backme" onClick={() => window.history.back()}>Back</div>
     <div className="child">
       <div className="image" style={windowSize ? {display: 'none'} : {display: 'block'}}>
-        <img src="https://picsum.photos/1820" alt="alt from" />
+        <img src={image} alt="alt from" />
       </div>
       <div className="content">
         <div className="uperWala">

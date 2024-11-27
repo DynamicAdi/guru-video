@@ -23,10 +23,10 @@ function CorporateCard({
               ₹ {discountedPrice} <span>₹ {actualPrice}</span>
             </h3>
           )}
-        </div>
-        <Link to={"/corporate/checkout"} state={{ name: title }}>
-          <button>Buy now</button>
+        <Link to={"/corporate/checkout"} style={{width: 'fit-content',height: '3rem'}} state={{ name: title }}>
+          <button className="glow">Buy now</button>
         </Link>
+        </div>
       </div>
     </Link>
   );
