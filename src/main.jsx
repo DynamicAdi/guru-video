@@ -25,6 +25,7 @@ import Invoice from "./components/invoice/index.jsx";
 import Notes from "./components/admin/Notes.jsx";
 import Notifications from "./components/admin/notifications/page.jsx";
 import ContactUs from "./components/contact/page.jsx";
+import Thanks from "./components/Thanks/index.jsx";
 
 const URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -44,6 +45,11 @@ createRoot(document.getElementById("root")).render(
           <Route
             path="/corporate"
             element={<Corporate backend={URL} href={'CorporateList'} />}
+            errorElement={<ErrorPage />}
+          />
+          <Route
+            path="/corporate/thanks"
+            element={<Thanks />}
             errorElement={<ErrorPage />}
           />
           <Route

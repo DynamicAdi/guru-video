@@ -45,7 +45,7 @@ function Render({backend}) {
         <div className="under">
           <h2>Welcome To</h2>
           <h1>
-            Guru <span>Catering</span>{" "}
+            Guru <span>Caterers</span>{" "}
           </h1>
           <p>
             We will make your function{" "}

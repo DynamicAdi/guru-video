@@ -1,0 +1,33 @@
+@import "../../sass/global";
+
+.main {
+    @include fullScreen();
+    background-color: #e8e8e8;
+    @include flex();
+
+    .child {
+        width: 80%;
+        height: 80%;
+        justify-content: center;
+        flex-direction: column;
+        // background: #000;
+
+        h1 {
+            font-size: 5rem;
+        }
+        h4 {
+            font-size: 2.5rem;
+            line-height: none;
+            span {
+                color: limegreen;
+            }
+        }
+        p {
+            font-size: 2rem;
+            margin-bottom: 4%;
+            span {
+                color: goldenrod;
+            }
+        }
+    }
+}
