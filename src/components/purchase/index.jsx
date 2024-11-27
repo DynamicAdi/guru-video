@@ -30,7 +30,6 @@ function BuyNow({url}) {
       e.preventDefault()
         try {
             setLoading(true);
-            sendEmail(e)
             const response = await axios.post(`${url}/orderCorporate`, {
                 itemName: formData.itemName,
                 name: formData.name,
