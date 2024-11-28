@@ -19,13 +19,28 @@ function BuyNow({url}) {
         customize: false,
       });
     
-      const [windowSize, setWindows] = useState(false);
+  const [address, setAddress] = useState({
+        area: "",
+        landmark: "",
+        city: "",
+        pincode: "",
+      });
+  let finalAddress =
+  address.area +
+  ", " +
+  address.landmark +
+  ", " +
+  address.city +
+  ", " +
+  address.pincode;
+  
+  const [windowSize, setWindows] = useState(false);
 
-      useEffect(() => {
-        if (window.innerWidth < 900) {
+  useEffect(() => {
+    if (window.innerWidth < 900) {
           setWindows(true);
         }
-      }, [window.innerWidth])
+    }, [window.innerWidth])
     
     const handleFinal = async (e) => {
       e.preventDefault()
@@ -37,7 +52,7 @@ function BuyNow({url}) {
                 phone: formData.phone,
                 email: formData.email,
                 date: formData.date,
-                address: formData.address,
+                address: finalAddress,
             })
             const email = await axios.post(`${url}/contactCorporate`, {
               name: formData.name,
@@ -66,7 +81,7 @@ function BuyNow({url}) {
                 phone: formData.phone,
                 email: formData.email,
                 date: formData.date,
-                address: formData.address,
+                address: finalAddress,
                 customize: formData.customize,
             })
             const email = await axios.post(`${url}/contactCorporate`, {
@@ -98,7 +113,7 @@ function BuyNow({url}) {
         <div className="uperWala">
             <h1>Checkout</h1>
         </div>
-        <form className="form">
+        <form className="form" style={{gap: '0.5rem'}}>
         <input
                 type="text"
                 name="name"
@@ -160,15 +175,45 @@ function BuyNow({url}) {
                   setFormData({ ...formData, date: e.target.value })
                 }
               />
-              <textarea
-                name="address"
-                required
-                placeholder="123, ABC Street"
-                onChange={(e) =>
-                  setFormData({ ...formData, address: e.target.value })
-                }
-              ></textarea>
-
+               <input
+                  type="text"
+                  name="area"
+                  placeholder="Area, Street, Sector, Village"
+                  required
+                  onChange={(e) =>
+                    setAddress({ ...address, area: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  name="landmark"
+                  placeholder="Landmark (optional)"
+                  required
+                  onChange={(e) =>
+                    setAddress({ ...address, landmark: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="Town City"
+                  required
+                  onChange={(e) =>
+                    setAddress({ ...address, city: e.target.value })
+                  }
+                />
+                <input
+                  type="number"
+                  name="pincode"
+                  placeholder="Pincode"
+                  required
+                  max={6}
+                  maxLength={6}
+                  onChange={(e) =>
+                    setAddress({ ...address, pincode: e.target.value })
+                  }
+                />
+              
               <div className="buttons">
                 <button
                   type="submit"
