@@ -1,0 +1,78 @@
+@import "../../sass/global";
+
+.sidepannel {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 0.8rem;
+    border-left: 1px solid gray;
+    .children {
+        width: 100%;
+        height: auto;
+        @include flex(flex-start, flex-start, column);
+        gap: 0.6rem;
+        overflow-y: auto;
+        margin-top: 10%;
+
+        .bottom {
+            width: 100%;
+            height: 0%;
+            // background-color: aqua;
+            padding: 0px 10%;
+            .logout {
+              border-top: 1px solid rgb(212, 212, 212);
+              width: 100%;
+              height: 100%;
+              padding: 5% 0%;
+              cursor: pointer;
+              font-size: 1.5rem;
+              button {
+                font-size: 1.5rem;
+                @include flex();
+                gap: 0.3rem;
+                background-color: transparent;
+                border: none;
+                outline: none;
+                cursor: pointer;
+                font-weight: 400;
+                transition: 0.3s ease;
+              }
+            }
+          }
+
+        .toolbox {
+            width: 100%;
+            height: auto;
+            @include flex(flex-start);
+            gap: 0.5rem;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: 0.2s all ease;
+
+            span {
+                padding: 0.8rem;
+                border-radius: 999px;
+                @include flex();
+            }
+            p {
+                border-radius: 50px;
+                font-size: 1.4rem;
+                @extend .font-poppins;
+            }
+            &.active {
+                transition: 0.2s all ease;
+                span {
+                transition: 0.2s all ease;
+                background: rgba($color: $secondary, $alpha: 0.25);
+                color: darken($color: $secondary, $amount: 15%);
+                }
+                p {
+                transition: 0.2s all ease;
+                    background: rgba($color: $secondary, $alpha: 0.2);
+                    color: $secondary;
+                    padding: 0.3rem 1rem 0.2rem;
+                    // color: $secondary;
+                }
+            }
+        }
+    }
+}

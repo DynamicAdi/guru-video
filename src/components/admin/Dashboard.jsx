@@ -26,7 +26,6 @@ import { askForPermission } from "../../funcs/firebase";
 // import {requestForToken} from "../../funcs/firebase.js"
 
 function Dashboard({ logout, backend }) {
-  // const backend = "http://localhost:8080"
   const tabs = [
     { title: "Admins", icon: RiAdminLine },
     { title: "Foods", icon: IoFastFoodOutline },
@@ -360,21 +359,12 @@ function Dashboard({ logout, backend }) {
           },
         }
       );
-      // console.log(response.data.secure_url);
       setImage(response.data.secure_url);
       setUploadProgress(false);
     } catch (error) {
       console.error("Error uploading image:", error);
     }
   };
-
-  // const handleStatus = async (id, value) => {
-  //     const requst = await axios.put(`${backend}/status`, {
-  //       id: id,
-  //       status: value,
-  //     })
-  // }
-
   return (
     <>
       {activeTab === "Clients" ||

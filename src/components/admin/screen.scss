@@ -1,0 +1,55 @@
+@import "../../sass/global";
+
+.table-container {
+    width: 98%;
+    margin: auto;
+  overflow: auto; // Prevent horizontal overflow
+//   border: 1px solid #ddd;
+//   border-radius: 5px;
+//   padding: 10px;
+
+  .custom-table {
+    width: 100%;
+    border-collapse: separate; // Change to 'separate' to enable spacing
+    border-spacing: 10px; // Add space between table cells
+    text-align: center;
+    table-layout: auto;
+    th,
+    td {
+     border-radius: 100px;
+      padding: 4px 12px;
+      word-wrap: break-word; // Break long words
+      overflow: hidden; // Ensures content does not overflow the cell
+      // text-overflow: ellipsis; 
+      white-space: normal; // Allow wrapping of text
+    //   border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: rgba($color: $secondary, $alpha: 0.2);
+      color: $secondary;
+      font-weight: 600;
+    }
+
+    tr, td {
+        border: none;
+        border-radius: 0px;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  }
+  .edit {
+    cursor: pointer;
+    &:hover {
+      color: #fc9b39cc;
+    }
+  }
+  .delete {
+    cursor: pointer;
+    margin-left: 10%;
+    &:hover {
+      color: crimson;
+    }
+  }
+}

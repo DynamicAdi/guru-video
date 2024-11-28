@@ -3,10 +3,10 @@ import "./styles.scss";
 import { BiParty, BiUser, BiCheckDouble } from "react-icons/bi";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from 'axios';
-import image from "../../assets/image.jpg"
+import axios from "axios";
+import image from "../../assets/image.jpg";
 
-function Checkout({backend}) {
+function Checkout({ backend }) {
   const location = useLocation();
   const navigate = useNavigate();
   const { items, prefrence } = location.state || [];
@@ -35,33 +35,55 @@ function Checkout({backend}) {
   });
 
   const [stepForm, setStepForm] = useState(1);
+  const [address, setAddress] = useState({
+    area: "",
+    landmark: "",
+    city: "",
+    pincode: "",
+  });
 
   const [windowSize, setWindows] = useState(false);
+
+  let finalAddress =
+    address.area +
+    ", " +
+    address.landmark +
+    ", " +
+    address.city +
+    ", " +
+    address.pincode;
+  // console.log(finalAddress);
 
   useEffect(() => {
     if (window.innerWidth < 900) {
       setWindows(true);
     }
-  }, [window.innerWidth])
-
+  }, [window.innerWidth]);
 
   const uploadData = async () => {
     try {
       const data = await axios.post(`${backend}/addOrder`, {
-        
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
         date: formData.date,
-        address: formData.address,
+        address: finalAddress,
         note: functionDetails.yourNote,
         functionType: functionDetails.functionType,
         noOfPeople: functionDetails.noOfPeoples,
         foodPreference: functionDetails.prefrence,
         items: items,
       });
-      if (data.status === 200) {
-        navigate("/");
+      const email = await axios.post(`${url}/contactCorporate`, {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        subject: "Order confirmation",
+        message: `Your order has been placed successfully. \n\nName: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email}\nDate: ${formData.date}\nAddress: ${formData.address}\n\nThank you for your order!`,
+      });
+      if (data.status === 200 && email.status === 200) {
+        localStorage.clear();
+        navigate("/checkout/thanks");
       }
     } catch (error) {
       console.error("Failed to upload data", error);
@@ -84,6 +106,10 @@ function Checkout({backend}) {
     setStepForm(2);
   };
   const handleFinal = () => {
+    setFormData((prevDetails) => ({
+      ...prevDetails,
+      address: finalAddress,
+    }));
     if (formData.name === "") {
       alert("Please enter name");
       return null;
@@ -104,7 +130,7 @@ function Checkout({backend}) {
       alert("Please enter date");
       return null;
     }
-    if (formData.address === "") {
+    if (finalAddress === "") {
       alert("Please enter address");
       return null;
     }
@@ -131,12 +157,25 @@ function Checkout({backend}) {
     }));
   };
 
+  const goBack = () => {
+    if (stepForm === 2) {
+      setStepForm(1);
+    } else if (stepForm === 3) {
+      setStepForm(2);
+    }
+  };
+
   const today = new Date().toISOString().split("T")[0];
   return (
     <div className="main">
-      <div className="backme" onClick={() => navigate('/menu')}>Back</div>
+      <div className="backme" onClick={() => navigate("/menu")}>
+        Back
+      </div>
       <div className="child">
-        <div className="image" style={windowSize ? {display: 'none'} : {display: 'block'}}>
+        <div
+          className="image"
+          style={windowSize ? { display: "none" } : { display: "block" }}
+        >
           <img src={image} alt="alt from" />
         </div>
         <div className="content">
@@ -185,7 +224,7 @@ function Checkout({backend}) {
             </div>
           </div>
 
-          <form className="form">
+          <form className="form" style={{ gap: "0.5rem" }}>
             {stepForm === 1 && (
               <>
                 <select
@@ -213,11 +252,9 @@ function Checkout({backend}) {
                 >
                   <option value={noOfPeoples}>No. of People</option>
                   {noOfPeoples.map((tab, index) => (
-
-                      <option key={index} value={tab}>
-                        {tab}
-                      </option>
-            
+                    <option key={index} value={tab}>
+                      {tab}
+                    </option>
                   ))}
                 </select>
                 <div className="input">
@@ -284,9 +321,14 @@ function Checkout({backend}) {
                   type="number"
                   name="phone"
                   required
-                  placeholder="+91-987654xxxxxx"
+                  max={10}
+                  maxLength={10}
+                  placeholder="987654xxxxxx"
                   onChange={(e) =>
-                    setFormData({ ...formData, phone: e.target.value.replace(/[^\d]/g, "").slice(0, 10) })
+                    setFormData({
+                      ...formData,
+                      phone: e.target.value.replace(/[^\d]/g, "").slice(0, 10),
+                    })
                   }
                 />
 
@@ -296,7 +338,10 @@ function Checkout({backend}) {
                   required
                   placeholder="xyz@example.com"
                   onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value.replace(/\s+/g, "")})
+                    setFormData({
+                      ...formData,
+                      email: e.target.value.replace(/\s+/g, ""),
+                    })
                   }
                 />
                 <input
@@ -308,16 +353,59 @@ function Checkout({backend}) {
                     setFormData({ ...formData, date: e.target.value })
                   }
                 />
-                <textarea
-                  name="address"
+                <input
+                  type="text"
+                  name="area"
+                  placeholder="Area, Street, Sector, Village"
                   required
-                  placeholder="123, ABC Street"
                   onChange={(e) =>
-                    setFormData({ ...formData, address: e.target.value })
+                    setAddress({ ...address, area: e.target.value })
                   }
-                ></textarea>
+                />
+                <input
+                  type="text"
+                  name="landmark"
+                  placeholder="Landmark (optional)"
+                  required
+                  onChange={(e) =>
+                    setAddress({ ...address, landmark: e.target.value })
+                  }
+                />
+                <input
+                  type="text"
+                  name="city"
+                  placeholder="Town City"
+                  required
+                  onChange={(e) =>
+                    setAddress({ ...address, city: e.target.value })
+                  }
+                />
+                <input
+                  type="number"
+                  name="pincode"
+                  placeholder="Pincode"
+                  required
+                  max={6}
+                  maxLength={6}
+                  onChange={(e) =>
+                    setAddress({ ...address, pincode: e.target.value })
+                  }
+                />
 
                 <div className="buttons">
+                  <button
+                    type="submit"
+                    className="success"
+                    style={{
+                      backgroundColor: "#ff5555",
+                      boxShadow: "6px 8px 20px #ff555580",
+                    }}
+                    onClick={(e) => {
+                      goBack(), e.preventDefault();
+                    }}
+                  >
+                    Back
+                  </button>
                   <button
                     type="submit"
                     className="success"
@@ -356,19 +444,31 @@ function Checkout({backend}) {
                     />
                   </div>
                 ))}
-
                 <div className="buttons">
+                <button
+                  type="submit"
+                  className="success"
+                  style={{
+                    backgroundColor: "#ff5555",
+                    boxShadow: "6px 8px 20px #ff555580",
+                  }}
+                  onClick={(e) => {
+                    goBack(), e.preventDefault();
+                  }}
+                >
+                  Back
+                </button>
                   <button
                     type="submit"
                     className="success"
                     onClick={(e) => {
-                    uploadData(),
-                    e.preventDefault();
+                      uploadData(), e.preventDefault();
                     }}
                   >
                     Place Order
                   </button>
                 </div>
+          {/* </div> */}
               </>
             )}
           </form>

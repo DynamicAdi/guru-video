@@ -26,6 +26,7 @@ import Notes from "./components/admin/Notes.jsx";
 import Notifications from "./components/admin/notifications/page.jsx";
 import ContactUs from "./components/contact/page.jsx";
 import Thanks from "./components/Thanks/index.jsx";
+import MainAdminDashboard from "./components/admin/Main.jsx";
 
 const URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -35,6 +36,7 @@ createRoot(document.getElementById("root")).render(
       <ArrayProvider>
         <Routes>
           <Route errorElement={<ErrorPage />} path="/" element={<App backend={URL} />} />
+          <Route errorElement={<ErrorPage />} path="/test" element={<MainAdminDashboard backend={URL} />} />
           <Route path="/menu" element={<Menu backend={URL} />} errorElement={<ErrorPage />} />
           <Route
             path="/menu/:choose"
@@ -42,6 +44,7 @@ createRoot(document.getElementById("root")).render(
             errorElement={<ErrorPage />}
           />
           <Route path="/checkout" element={<Checkout backend={URL} />} errorElement={<ErrorPage />} />
+          <Route path="/checkout/thanks" element={<Thanks />} errorElement={<ErrorPage />} />
           <Route
             path="/corporate"
             element={<Corporate backend={URL} href={'CorporateList'} />}
