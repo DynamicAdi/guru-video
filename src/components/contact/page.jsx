@@ -11,7 +11,6 @@ import axios from 'axios';
 
 
 function ContactUs({backend}) {
-    // const backend = 'http://localhost:8080'
   const socialMedia = [
     {
       icon: FaInstagram,
