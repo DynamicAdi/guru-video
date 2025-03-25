@@ -36,7 +36,7 @@ createRoot(document.getElementById("root")).render(
       <ArrayProvider>
         <Routes>
           <Route errorElement={<ErrorPage />} path="/" element={<App backend={URL} />} />
-          <Route errorElement={<ErrorPage />} path="/test" element={<MainAdminDashboard backend={URL} />} />
+          {/* <Route errorElement={<ErrorPage />} path="/test" element={<MainAdminDashboard backend={URL} />} /> */}
           <Route path="/menu" element={<Menu backend={URL} />} errorElement={<ErrorPage />} />
           <Route
             path="/menu/:choose"

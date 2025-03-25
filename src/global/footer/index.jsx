@@ -8,6 +8,32 @@ import {
 } from "react-icons/md";
 
 function Footer() {
+  const tabs = [
+    {
+      name: "Home",
+      to: "/#home",
+    },
+    {
+      name: "About",
+      to: "/about-us",
+    },
+    {
+      name: "Popular items",
+      to: "/#popular",
+    },
+    {
+      name: "Packages",
+      to: "/packages",
+    },
+    {
+      name: "Corporate box",
+      to: "/corporate",
+    },
+    {
+      name: "Menu",
+      to: "/menu",
+    },
+  ];
   return (
     <div className="footer">
       <div className="container">
@@ -24,11 +50,15 @@ function Footer() {
         <div className="quickLinks">
           <h1>Quick Links</h1>
           <ul>
-            <li className="link">Home</li>
-            <li className="link">Menu</li>
-            <li className="link">Veg</li>
-            <li className="link">Non-Veg</li>
-            <li className="link">Corprate Box</li>
+            {
+              tabs.map((tab, index) => {
+                return (
+                  <a href={tab.to} style={{textDecoration: 'none', color: 'white'}}>
+                  <li className="link">{tab.name}</li>
+                  </a>
+                )
+              })
+            }
           </ul>
         </div>
         <div className="quickLinks">
@@ -50,7 +80,7 @@ function Footer() {
           </ul>
         </div>
         <p className="copyright">
-          All the copyrights are reserved by Guru caterers
+          All the copyrights are reserved by <a href="https://outrightcreators.com" style={{textDecoration: 'underline', color: 'white'}}>Outright Creators</a>
         </p>
       </div>
     </div>

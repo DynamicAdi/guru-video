@@ -35,7 +35,7 @@
         width: 100%;
         height: 100%;
         // background-color: red;
-        @include flex(flex-start, flex-start);
+        @include flex(space-between, flex-start);
         gap: 1.5rem;
         margin-top: 2%;
 

@@ -17,7 +17,7 @@ function Navbar() {
     },
     {
       name: "About",
-      to: "/#about",
+      to: "/about-us",
     },
     {
       name: "Services",

@@ -116,7 +116,7 @@ function Edit({backend}) {
         setLoading(true);
         const response = await axios.put(`${backend}/category/update`, {
           id: id,
-          catogery: name,
+          name: name,
           image: imageUrl,
         })
         console.log(id);

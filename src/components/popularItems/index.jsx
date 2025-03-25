@@ -5,6 +5,8 @@ import "./styles.scss";
 import ColorCard from "./card";
 import Slider from "react-slick";
 import SmallLoader from "../../global/loader/SmallLoader";
+import { IoIosArrowRoundForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 function PopularItems({backend}) {
   // console.log(backend);
@@ -83,6 +85,11 @@ function PopularItems({backend}) {
             ) 
           ))}
           </Slider>
+        <div className="chckBtn">
+          <Link to="/menu" style={{textDecoration: 'none'}}>
+          <div className="btnChk">Checkout <IoIosArrowRoundForward size={26} style={{marginLeft: '0.3rem'}} /></div>
+          </Link>
+        </div>
         </div>
       </div>
     </div>

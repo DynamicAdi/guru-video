@@ -2,6 +2,7 @@ import React from 'react'
 import "./styles.scss"
 import plate from "/plate.png";
 import {IoIosArrowRoundForward} from "react-icons/io"
+import { Link } from 'react-router-dom';
 
 function About() {
   return (
@@ -15,7 +16,9 @@ function About() {
                <p>We are known as one of the best catering services in Hyderabad and Secunderabad. The reason behind this achievement is that we have handpicked our staff after proper screening and assessment of culinary skills. One can be assured that we have excellent etiquettes to match his expectations in terms of service.
     <br /><br />
 Our Professional caterers staff are polite and ensure that the service is delivered as per your custom needs. So, you can have your event covered seamlessly.</p>
+            <Link to={'/about-us'} style={{textDecoration: 'none'}}>
             <button className="glow">Learn more <IoIosArrowRoundForward size={32} /></button>
+            </Link>
             
 
             <div className="stats">
