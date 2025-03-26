@@ -142,7 +142,7 @@ function BuyNow({ url }) {
         <img src="cid:logoImg" width="150" height="80" alt="Guru's Caterers Logo">
     </div>
     <h1>Thank You for Your Order!</h1>
-    <p>We have received order for your ${functionDetails.functionType} on ${formData.date}!<br>
+    <p>We have received order for your ${formData.itemName} on ${formData.date}!<br>
        We are preparing something delicious just for you! <br>
        Keep an eye on your inbox for the confirmation email and delivery updates.</p>
     <div class="action-section">
@@ -271,7 +271,7 @@ function BuyNow({ url }) {
         <img src="cid:logoImg" width="150" height="80" alt="Guru's Caterers Logo">
     </div>
     <h1>Thank You for Your Order!</h1>
-    <p>We have received order for your ${functionDetails.functionType} on ${formData.date}!<br>
+    <p>We have received order for your ${formData.itemName} on ${formData.date}!<br>
        We are preparing something delicious just for you! <br>
        Keep an eye on your inbox for the confirmation email and delivery updates.</p>
     <div class="action-section">
