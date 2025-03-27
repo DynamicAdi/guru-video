@@ -10,7 +10,8 @@
     gap: 0.5rem;
     position: relative;
     @include media(mobile) {
-        width: 21rem;
+        // @include flex(space-between, flex-start, $fd:)
+        width: 18rem;
         height: 18rem;
     }
     .veg {

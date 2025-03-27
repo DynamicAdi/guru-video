@@ -27,6 +27,7 @@ import Notifications from "./components/admin/notifications/page.jsx";
 import ContactUs from "./components/contact/page.jsx";
 import Thanks from "./components/Thanks/index.jsx";
 import MainAdminDashboard from "./components/admin/Main.jsx";
+import NotFound from "./global/error/NotFound.jsx";
 
 const URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -47,7 +48,7 @@ createRoot(document.getElementById("root")).render(
           <Route path="/checkout/thanks" element={<Thanks />} errorElement={<ErrorPage />} />
           <Route
             path="/corporate"
-            element={<Corporate backend={URL} href={'CorporateList'} />}
+            element={<Corporate backend={URL} href={'corporate'} />}
             errorElement={<ErrorPage />}
           />
           <Route
@@ -144,6 +145,12 @@ createRoot(document.getElementById("root")).render(
             path="/contact-us"
             element={<ContactUs backend={URL}/>}
             errorElement={<ErrorPage />}
+          />
+
+          <Route 
+              path="*"
+              element={<NotFound />}
+              errorElement={<NotFound />}
           />
         </Routes>
       </ArrayProvider>

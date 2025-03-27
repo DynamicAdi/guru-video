@@ -279,7 +279,7 @@ function Checkout({ backend }) {
           <img src={image} alt="alt from" />
         </div>
         <div className="content">
-          <div className="uperWala">
+          <div className="uperWala upperarea">
             <div
               className={`box ${stepForm === 1 ? "active" : ""} ${
                 stepForm === 2 || 3 ? "done" : ""

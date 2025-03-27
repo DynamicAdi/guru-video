@@ -11,6 +11,7 @@ position: relative;
     padding: 0px 2rem;
     @include media(mobile) {
       padding: 1rem;
+      margin-top: 15%;
       flex-direction: column;
     }
 
@@ -162,9 +163,9 @@ position: relative;
       height: auto;
       overflow-y: scroll;
       scrollbar-width: none;
-      @include flex(flex-start, flex-start);
+      @include flex(space-between, flex-start);
       gap: 4rem;
-      padding: 3rem 3rem 2rem 1rem;
+      padding: 3rem 8rem;
       margin-bottom: 5rem;
       transition: 0.3s opacity ease;
       // transform: translateX(100%);

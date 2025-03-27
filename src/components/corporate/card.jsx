@@ -9,9 +9,10 @@ function CorporateCard({
   image,
   actualPrice,
   discountedPrice,
+  href = "corporate"
 }) {
   return (
-    <Link to={"/corporate/items"} state={{ id: id }}>
+    <Link to={`/${href}/items`} state={{ id: id }}>
       <div className="coCard">
         <img src={image} alt={title} />
         <div className="blur">
@@ -23,7 +24,7 @@ function CorporateCard({
               ₹ {discountedPrice} <span>₹ {actualPrice}</span>
             </h3>
           )}
-        <Link to={"/corporate/checkout"} style={{width: 'fit-content',height: '3rem'}} state={{ name: title }}>
+        <Link to={`/${href}/checkout`} style={{width: 'fit-content',height: '3rem'}} state={{ name: title }}>
           <button className="glow">Buy now</button>
         </Link>
         </div>

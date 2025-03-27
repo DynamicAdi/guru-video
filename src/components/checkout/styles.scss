@@ -57,10 +57,28 @@
         gap: 3rem;
         // background: #000;
         // margin:2% 0;
-        @include media(mobile, tablet) {
+        &.upperarea {
+          // background-color: red;
+          @include media(mobile) {
+            justify-content: space-between;  
+            margin-bottom: 10%;
+          }
+        }
+        @include media(mobile) {
           width: 100%;
           gap: 1rem;
+
         }
+
+        @include media(tablet) {
+          width: 100%;
+          gap: 1rem;
+          // justify-content: space-between;
+          margin-bottom: 1rem;
+          // background-color: red;
+        }
+        
+
         .box {
           @include flex($fd: column);
           gap: 0.4rem;
@@ -91,7 +109,7 @@
             font-size: 16px;
             // margin-bottom: 1rem;
             @include media(mobile, tablet) {
-              font-size: 16px;
+              font-size: 14px;
             }
           }
           &.active,

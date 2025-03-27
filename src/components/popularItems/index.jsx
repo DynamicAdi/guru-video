@@ -74,7 +74,7 @@ function PopularItems({backend}) {
         </h2>
       </div>
       <div className="child">
-        <div className="popCards"
+        <div className="popCards new"
         >
           <Slider arrows={false} {...settings}>
           {loading ? (<SmallLoader />) : (

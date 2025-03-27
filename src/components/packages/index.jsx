@@ -87,8 +87,9 @@ function Packages({backend}) {
             <div className="boxes">
 
             {
-            loading ? <SmallLoader /> : data.length === 0 ? <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90%'}}><h1 style={{textAlign: 'center'}}>No Items Found! 🥺☹️</h1></div> : data.length > 0 &&  
+            loading ? <SmallLoader /> : data.length === 0 ? <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90%'}}><h2 style={{textAlign: 'center'}}>No Items Found! ☹️</h2></div> : data.length > 0 &&  
             (
+              
           <Slider arrows={false} {...settings}>
             {
               data.map((content, index) => (

@@ -84,7 +84,7 @@
                 }
                 .itemList {
                     padding: 2% 0px;
-                    @include flex(flex-start, center);
+                    @include flex(space-around, center);
                     gap: 1rem;
                 }
             }
@@ -159,7 +159,7 @@
 }
 
 .boxCard {
-    width: 22rem;
+    width: 20rem;
     height: 9rem;
     background-color: white;
     box-shadow: 2px 2px 16px #11111125;

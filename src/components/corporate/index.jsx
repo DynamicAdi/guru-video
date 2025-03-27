@@ -79,6 +79,7 @@ function Corporate({backend, href}) {
       image={item.image}
       actualPrice={item?.actualPrice}
       discountedPrice={item?.discountedPrice}
+      href={href}
       />     
       ))}
 
