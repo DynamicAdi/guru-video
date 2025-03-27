@@ -28,7 +28,6 @@
         color: black;
         @include media(mobile) {
             height: auto;
-            width: 80%;
             gap: 3rem;
         }
         h2 {
@@ -42,7 +41,7 @@
             }
         }
         .boxes {
-            width: 100%;
+            width: 95%;
             height: 75%;
             // @include flex(space-between);
             // @include media(mobile) {
