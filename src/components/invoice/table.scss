@@ -1,5 +1,5 @@
 $base-spacing-unit: 24px;
-$half-spacing-unit: $base-spacing-unit / 2;
+$half-spacing-unit: calc($base-spacing-unit / 2);
 
 $color-alpha: #1772FF;
 $color-form-highlight: #EEEEEE;
